@@ -7,6 +7,10 @@ const userSchema = new Schema(
     password: {type: String, required: true},
     name: String,
     bio: String,
+    links: [String],
+    profilePic: String,
+    jamSpot: Boolean,
+    instruments: String,
   },
   {
     timestamps: {

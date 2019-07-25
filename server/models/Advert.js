@@ -10,9 +10,7 @@ const advertSchema = new mongoose.Schema({
   comments: [{_user: { type: Schema.Types.ObjectId, ref: "User" },
               text: String,
   }]
-  userAccepted: [ {_user: { type: Schema.Types.ObjectId, ref: "User" }, 
-  accepted: {type: Boolean, default: true}
-  }]
+ 
 })
 
 const Advert = mongoose.model('Advert', advertSchema)
