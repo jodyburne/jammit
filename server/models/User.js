@@ -10,7 +10,10 @@ const userSchema = new Schema(
     links: [String],
     profilePic: String,
     jamSpot: Boolean,
-    instruments: String,
+    gear: [String],
+    skills: [String],
+   status: { type: String, enum: ['pending confirmation', 'active'], default: 'pending confirmation' },
+  confirmationCode: {type: String, unique: true} 
   },
   {
     timestamps: {
