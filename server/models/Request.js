@@ -11,7 +11,7 @@ const advertSchema = new mongoose.Schema({
       _postOwner:  { type: Schema.Types.ObjectId, ref: "User" },
       _requester:  { type: Schema.Types.ObjectId, ref: "User" },
       _post:       { type: Schema.Types.ObjectId, ref: "Advert"},
-      approval:    {type: Boolean, default: false},
+      approval:    {type: String, enum: ["Approved","Denied","Pending"], default: false},
       message: String,
   })
 

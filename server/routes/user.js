@@ -24,8 +24,6 @@ router.put(
     if (req.file) {
       req.data['profilePic'] = req.file.secure_url
     }
-    console.log('DEBUG: ', req.data)
-    //console.log('DEBUG: ', req.file)
 
     User.findByIdAndUpdate(userId, req.data, { new: true })
       .then(user => res.json(user))
