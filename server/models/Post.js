@@ -3,8 +3,8 @@ const Schema = mongoose.Schema
 
 const postSchema = new mongoose.Schema({
   imageURL: String,
-  text: {type: String, text: required},
-  _user: { type: Schema.Types.ObjectId, ref: "User" }
+  text: { type: String, required: true },
+  _user: { type: Schema.Types.ObjectId, ref: 'User' },
 })
 
 const Post = mongoose.model('Post', postSchema)
