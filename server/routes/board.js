@@ -35,4 +35,33 @@ router.post('/postjam', isLoggedIn,  uploadCloud.single("file"), (req, res, next
   })
 })
 
+
+router.get('/boards', isLoggedIn, (req, res, next) => {
+  Advert.find()
+  .then(ads => {
+    res.json(ads)
+  })
+})
+
+router.get('/myBoards', isLoggedIn, (req, res, next) => {
+Advert.find({_user: req.user._id})
+.then(ads => {
+  res.json(ads)
+})
+})
+
+router.delete('/myBoards/:advertId', isLoggedIn, (req, res, next) => {
+Advert.findById(req.params.advertId)
+Advert.deleteOne({_id: req.params.advertId})
+ .then( ad => {
+res.json({
+  success: true,
+  message: 'ad deleted',
+})
+   })
+   .catch(err => next(err))
+})
+
+
+
 module.exports = router
