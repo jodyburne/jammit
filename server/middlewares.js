@@ -3,6 +3,7 @@ function isLoggedIn(req, res, next) {
   else next({ status: 403, message: 'Unauthorized' })
 }
 
+// Middleware to define a req.data
 function defineData(possibleFields) {
   return (req, res, next) => {
     req.data = {}

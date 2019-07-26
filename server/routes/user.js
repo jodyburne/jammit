@@ -1,7 +1,7 @@
 const express = require('express')
 const User = require('../models/User')
 const { isLoggedIn, defineData } = require('../middlewares')
-
+const uploadCloud = require('../configs/cloudinary.js')
 const router = express.Router()
 
 /* This route returns the info about the logged user*/
@@ -16,10 +16,16 @@ router.get('/', isLoggedIn, (req, res, next) => {
 router.put(
   '/',
   isLoggedIn,
-  defineData(['bio', 'links', 'profilePic', 'jamSpot', 'gear', 'skills']),
+  defineData(['bio', 'links', 'jamSpot', 'gear', 'skills']),
+  uploadCloud.single('file'),
   (req, res, next) => {
     let userId = req.user._id
+
+    if (req.file) {
+      req.data['profilePic'] = req.file.secure_url
+    }
     console.log('DEBUG: ', req.data)
+    //console.log('DEBUG: ', req.file)
 
     User.findByIdAndUpdate(userId, req.data, { new: true })
       .then(user => res.json(user))
