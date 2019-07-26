@@ -12,6 +12,7 @@ const advertSchema = new mongoose.Schema({
       _requester:  { type: Schema.Types.ObjectId, ref: "User" },
       _post:       { type: Schema.Types.ObjectId, ref: "Advert"},
       approval:    {type: Boolean, default: false},
+      message: String,
   })
 
 const Advert = mongoose.model('Advert', advertSchema)
