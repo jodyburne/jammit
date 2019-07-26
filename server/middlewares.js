@@ -8,7 +8,10 @@ function defineData(possibleFields) {
   return (req, res, next) => {
     req.data = {}
     for (let i = 0; i < possibleFields.length; i++) {
+      // debugger;
       if (req.body.hasOwnProperty(possibleFields[i])) {
+        console.log("I AM BEING CALLED", possibleFields )
+      // if (typeof req.body[possibleFields[i]] === 'undefined') {
         req.data[possibleFields[i]] = req.body[possibleFields[i]]
       }
     }
