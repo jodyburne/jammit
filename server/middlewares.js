@@ -8,7 +8,8 @@ function defineData(possibleFields) {
   return (req, res, next) => {
     req.data = {}
     for (let i = 0; i < possibleFields.length; i++) {
-      if (req.body.hasOwnProperty(possibleFields[i])) {
+      console.log('TCL: req.body', req.body)
+      if (req.body[possibleFields[i]] !== undefined) {
         req.data[possibleFields[i]] = req.body[possibleFields[i]]
       }
     }
