@@ -87,16 +87,18 @@ getBoards() {
 },
 
 
-  addCountry(body) {
+
+  //not yet tested
+  getProfile() {
     return service
-      .post('/countries', body)
+      .get('/user')
       .then(res => res.data)
       .catch(errHandler)
   },
 
-  getSecret() {
+  addCountry(body) {
     return service
-      .get('/secret')
+      .post('/countries', body)
       .then(res => res.data)
       .catch(errHandler)
   },

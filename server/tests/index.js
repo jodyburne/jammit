@@ -60,29 +60,33 @@ describe('MVP Tests', () => {
     })
   })
 
-  // NOT WORKING?????
-  // describe('POST /api/login', () => {
-  //   it('should be able to login', done => {
-  //     User.create(userDocs[0]).then(() => {
-  //       User.find(users => {
-  //         console.log('TCL: users', users)
-  //         chai
-  //           .request(server)
-  //           .post('/api/login')
-  //           .send({
-  //             email: 'alice@gmail.com',
-  //             password: 'alice',
-  //           })
-  //           .end((err, res) => {
-  //             res.should.have.status(200)
-  //             User.find().then(users => {
-  //               users.length.should.be.eql(1)
-  //               users[0].email.should.be.eql('maxence@ironhack.com')
-  //               done()
-  //             })
-  //           })
-  //       })
-  //     })
-  //   })
-  // })
+  describe('POST /api/login', () => {
+    it('should be able to login', done => {
+      console.log('TCL: userDocs', userDocs)
+      User.create(userDocs).then(() => {
+        User.find().then(users => {
+          console.log('TCL: users', users)
+          chai
+            .request(server)
+            .post('/api/login')
+            .send({
+              email: 'bob@gmail.com',
+              password: 'bob',
+              /* email: 'alice@gmail.com',
+              password: 'alice', */
+            })
+            .end((err, res) => {
+              res.should.have.status(200)
+              User.find()
+                .then(users => {
+                  users.length.should.be.eql(1)
+                  users[0].email.should.be.eql('bob@gmail.com')
+                  done()
+                })
+                .catch(err => next(err))
+            })
+        })
+      })
+    })
+  })
 })
