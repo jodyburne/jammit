@@ -8,6 +8,7 @@ import Login from './pages/Login'
 import Signup from './pages/Signup'
 import api from '../api'
 import logo from '../logo.svg'
+import Boards from './pages/Boards'
 
 export default class App extends Component {
   constructor(props) {
@@ -30,6 +31,8 @@ export default class App extends Component {
           <NavLink to="/" exact>
             Home
           </NavLink>
+          
+          <NavLink to="/boards">Boards</NavLink>
           <NavLink to="/countries">Countries</NavLink>
           <NavLink to="/add-country">Add country</NavLink>
           {!api.isLoggedIn() && <NavLink to="/signup">Signup</NavLink>}
@@ -43,6 +46,7 @@ export default class App extends Component {
         </header>
         <Switch>
           <Route path="/" exact component={Home} />
+          <Route path="/boards" component={Boards} />
           <Route path="/countries" component={Countries} />
           <Route path="/add-country" component={AddCountry} />
           <Route path="/signup" component={Signup} />

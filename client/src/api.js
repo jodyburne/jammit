@@ -79,6 +79,14 @@ export default {
 //   .catch(errHandler)
 // }
 
+getBoards() {
+  return service 
+    .get('/boards')
+    .then(res => res.data)
+    .catch(errHandler)
+},
+
+
   addCountry(body) {
     return service
       .post('/countries', body)
