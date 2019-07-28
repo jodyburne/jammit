@@ -71,6 +71,13 @@ export default {
       .then(res => res.data)
       .catch(errHandler)
   },
+//not yet tested
+// getProfile() {
+//   return service 
+//   .get('/user')
+//   .then(res => res.data)
+//   .catch(errHandler)
+// }
 
   addCountry(body) {
     return service
