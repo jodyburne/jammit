@@ -1,12 +1,70 @@
 const express = require('express')
 const passport = require('passport')
+const {isLoggedIn, defineData} = require("../middlewares");
 const router = express.Router()
 const User = require('../models/User')
 const Advert = require('../models/Advert')
 const uploadCloud = require("../configs/cloudinary.js");
-const { isLoggedIn } = require("../middlewares");
+const Post = require('../models/Post')
+const async = require('async')
 
 
+//post a showoff
+router.post('/showOff', isLoggedIn, uploadCloud.single('file'), (req,res,next) => {
+   let userImg = "";
+    if (req.file) {
+      userImg = req.file.secure_url;
+    } else {
+      userImg = req.user.profilePic;
+    }
+ const text = req.body.text
+  Post.create({
+    _user: req.user._id,
+  imageURL: userImg,
+  text: text,
+  })
+   .then(post => {
+    console.log("post", post)
+    res.json(post);
+  })
+  .catch(err =>  {
+    console.log('error', err)
+    res.status(500).json({ message: 'Something went wrong' })
+  })
+
+})
+
+//delete a showoff
+router.delete('/myBoards/:postId', isLoggedIn, (req, res, next) => {
+Post.findById(req.params.postId)
+Post.deleteOne({_id: req.params.postId})
+ .then( post => {
+res.json({
+  success: true,
+  message: 'post deleted',
+})
+   })
+   .catch(err => next(err))
+})
+
+
+//get all showoffs
+router.get('/showOffs', (req, res, next) => {
+  Post.find()
+  .then(posts => {
+    res.json(posts)
+  })
+})
+
+//get all user's showoffs
+router.get('/myBoards/showOffs', isLoggedIn, (req, res, next) => {
+Post.find({_user: req.user._id})
+.then(posts => {
+  res.json(posts)
+})
+})
+
+//post a jam/wanted
 router.post('/postjam', isLoggedIn,  uploadCloud.single("file"), (req, res, next) => {
   console.log('YOOO')
   let userImg = "";
@@ -35,7 +93,20 @@ router.post('/postjam', isLoggedIn,  uploadCloud.single("file"), (req, res, next
   })
 })
 
+//route to get both ads and posts not working, returning only ads
 
+// router.get('/boards', isLoggedIn, (req, res, next) => {
+//   Promise.all([
+//     Post.find(),
+//     Advert.find()
+//   ])
+//   .then(([post, ad]) => {
+//     res.json(post, ad)
+//   })
+//   .catch(err => next(err))
+// })
+
+//gets all jams and wanted
 router.get('/boards', isLoggedIn, (req, res, next) => {
   Advert.find()
   .then(ads => {
@@ -43,12 +114,17 @@ router.get('/boards', isLoggedIn, (req, res, next) => {
   })
 })
 
+
+//gets user's own jams/wanted
 router.get('/myBoards', isLoggedIn, (req, res, next) => {
+
 Advert.find({_user: req.user._id})
 .then(ads => {
   res.json(ads)
 })
 })
+
+//deletes an ad
 
 router.delete('/myBoards/:advertId', isLoggedIn, (req, res, next) => {
 Advert.findById(req.params.advertId)
@@ -61,7 +137,26 @@ res.json({
    })
    .catch(err => next(err))
 })
+//edits a jam/wanted post
+router.put(
+  '/myBoards/:advertId',
+  isLoggedIn,
+  defineData(['title', 'description', 'advertType']),
+  uploadCloud.single('file'),
+  (req, res, next) => {
+    let advertId = req.params.advertId
+    if (req.file) {
+      req.data['imageURL'] = req.file.secure_url
+    }
+    console.log('DEBUG BODY: ', req.body)
+    console.log('DEBUG: ', req.data)
 
+
+    Advert.findByIdAndUpdate(advertId, req.data, { new: true })
+      .then(ad => res.json(ad))
+      .catch(err => next(err))
+  }
+)
 
 
 module.exports = router
