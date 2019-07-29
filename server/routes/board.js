@@ -75,7 +75,6 @@ router.get('/showOffs/:showOffId', (req, res, next) => {
 
 //post a jam/wanted
 router.post('/postjam', isLoggedIn,  uploadCloud.single("file"), (req, res, next) => {
-  console.log('YOOO')
   let userImg = "";
     if (req.file) {
       userImg = req.file.secure_url;
@@ -86,8 +85,7 @@ router.post('/postjam', isLoggedIn,  uploadCloud.single("file"), (req, res, next
     }
   const advertType = req.body.advertType
   console.log( 'REQBODYODYODY', req.body)
-  if (advertType === 'jam') {
-    console.log('creating...')
+  
   Advert.create({
     _user: req.user,
   title: req.body.title,
@@ -95,7 +93,9 @@ router.post('/postjam', isLoggedIn,  uploadCloud.single("file"), (req, res, next
   imageURL: userImg,
   advertType: req.body.advertType,
   location: req.body.location,
-  instruments: req.body.instruments
+  instruments: req.body.instruments,
+   date: req.body.date,
+  time: req.body.time
   })
      .then(ad => {
     console.log("ad", ad)
@@ -105,14 +105,26 @@ router.post('/postjam', isLoggedIn,  uploadCloud.single("file"), (req, res, next
     console.log('error', err)
     res.status(500).json({ message: 'Something went wrong' })
   })
-  }
-  if(advertType === 'wanted'){
+  })
+
+router.post('/postwanted', isLoggedIn,  uploadCloud.single("file"), (req, res, next) => {
+  let userImg = "";
+    if (req.file) {
+      userImg = req.file.secure_url;
+      console.log(req.file)
+    } else {
+      console.log("req undefined");
+      userImg = req.user.profilePic;
+    }
+  const advertType = req.body.advertType
+  console.log( 'REQBODYODYODY', req.body)
      Advert.create({
     _user: req.user,
-  title: title,
-  description: description,
+  title: req.body.title,
+  description: req.body.description,
   imageURL: userImg,
   advertType: advertType,
+ 
   })
    .then(ad => {
     console.log("ad", ad)
@@ -122,8 +134,7 @@ router.post('/postjam', isLoggedIn,  uploadCloud.single("file"), (req, res, next
     console.log('error', err)
     res.status(500).json({ message: 'Something went wrong' })
   })
-  }
-})
+  })
 
 //route to get both ads and posts not working, returning only ads
 

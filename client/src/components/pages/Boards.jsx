@@ -41,6 +41,7 @@ function filterType(board){
 
   return  (
     <div>
+    <button><Link to='/postjam'>Post your own </Link></button>
     <h1>Boards</h1>
  <input
       type="text"

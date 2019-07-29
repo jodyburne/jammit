@@ -7,6 +7,7 @@ const advertSchema = new mongoose.Schema({
   description: { type: String, required: true },
   location: String,
   date: Date,
+  time: String,
   imageURL: { type: String, default: './../images/harrison.jpg' },
   advertType: { type: String, enum: ['wanted', 'jam'], required: true },
   instruments: [String],

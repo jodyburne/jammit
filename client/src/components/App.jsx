@@ -10,6 +10,9 @@ import logo from '../logo.svg'
 import Boards from './pages/Boards'
 import AdDetail from './pages/AdDetail'
 import CreateAd from './pages/CreateAd'
+import Wanted from './pages/Wanted'
+
+
 export default class App extends Component {
   constructor(props) {
     super(props)
@@ -49,6 +52,8 @@ export default class App extends Component {
           <Route path="/boards" exact component={Boards} />
           <Route path="/boards/:advertId" component={AdDetail} /> 
           <Route path="/postjam" component={CreateAd} />
+          <Route path="/postwanted" component={Wanted} />
+
           <Route path="/user" component={Profile} />
           <Route path="/add-country" component={AddCountry} />
           <Route path="/signup" component={Signup} />
