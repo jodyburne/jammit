@@ -8,7 +8,9 @@ import Login from './pages/Login'
 import Signup from './pages/Signup'
 import api from '../api'
 import logo from '../logo.svg'
-
+import Boards from './pages/Boards'
+import AdDetail from './pages/AdDetail'
+import CreateAd from './pages/CreateAd'
 export default class App extends Component {
   constructor(props) {
     super(props)
@@ -29,7 +31,9 @@ export default class App extends Component {
           <h1 className="App-title">MERN Boilerplate</h1>
           <NavLink to="/" exact>
             Home
-          </NavLink>
+          </NavLink>          
+          <NavLink to="/boards">Boards</NavLink>
+          <NavLink to="/countries">Countries</NavLink>
           <NavLink to="/user">Profile</NavLink>
           <NavLink to="/add-country">Add country</NavLink>
           {!api.isLoggedIn() && <NavLink to="/signup">Signup</NavLink>}
@@ -43,6 +47,9 @@ export default class App extends Component {
         </header>
         <Switch>
           <Route path="/" exact component={Home} />
+          <Route path="/boards" exact component={Boards} />
+          <Route path="/boards/:advertId" component={AdDetail} /> 
+          <Route path="/postjam" component={CreateAd} />
           <Route path="/user" component={Profile} />
           <Route path="/edit-user" component={EditProfile} />
           <Route path="/request" component={Requests} />

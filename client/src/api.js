@@ -71,6 +71,30 @@ export default {
       .then(res => res.data)
       .catch(errHandler)
   },
+//not yet tested
+// getProfile() {
+//   return service 
+//   .get('/user')
+//   .then(res => res.data)
+//   .catch(errHandler)
+// }
+
+getBoards() {
+  return service 
+    .get('/boards')
+    .then(res => res.data)
+    .catch(errHandler)
+},
+
+
+getAdDetail(adId){
+  console.log('HI THERE', adId)
+  return service
+    .get('/boards/' + adId)
+    .then(res => res.data)
+    .catch(errHandler)
+},
+
   //not yet tested
   getProfile() {
     return service
@@ -79,6 +103,7 @@ export default {
       .catch(errHandler)
   },
 
+<<<<<<< HEAD
   updateProfile(profileData) {
     return service
       .put('/user', profileData)
@@ -99,6 +124,14 @@ export default {
       .then(res => res.data)
       .catch(errHandler)
   },
+=======
+addAd(uploadData) {
+  return service
+    .post('/postjam', uploadData)
+    .then(res => res.data)
+    .catch(errHandler)
+},
+>>>>>>> e15d68e647dcc909c59dc195b3398d847a7920a8
 
   addCountry(body) {
     return service
