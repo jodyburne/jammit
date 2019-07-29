@@ -1,9 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import api from '../../api'
 
 export default function Profile() {
-  const user = JSON.parse(localStorage.getItem('user'))
-  console.log(typeof user[0])
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')))
+
+  useEffect(() => {
+    api.getProfile().then(user => {
+      setUser(user)
+    })
+  }, [])
 
   return (
     <div className="Profile">
@@ -11,6 +16,7 @@ export default function Profile() {
       {
         <div>
           <p>{user.name}</p>
+          <img src={user.profilePic} />
           <p>{user.bio}</p>
           <p>{user.links}</p>
           <p>{user.jamSpot}</p>

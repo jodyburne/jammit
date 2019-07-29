@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { Route, Link, NavLink, Switch } from 'react-router-dom'
 import Home from './pages/Home'
 import Profile from './pages/Profile'
-import AddCountry from './pages/AddCountry'
+import EditProfile from './pages/EditProfile'
+import Requests from './pages/Requests'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import api from '../api'
@@ -43,10 +44,12 @@ export default class App extends Component {
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/user" component={Profile} />
-          <Route path="/add-country" component={AddCountry} />
+          <Route path="/edit-user" component={EditProfile} />
+          <Route path="/request" component={Requests} />
+          {/*           <Route path="/add-country" component={AddCountry} />
+           */}
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
-
           <Route render={() => <h2>404</h2>} />
         </Switch>
       </div>

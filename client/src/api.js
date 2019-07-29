@@ -79,6 +79,27 @@ export default {
       .catch(errHandler)
   },
 
+  updateProfile(profileData) {
+    return service
+      .put('/user', profileData)
+      .then(res => res.data)
+      .catch(errHandler)
+  },
+
+  getIncomingRequests() {
+    return service
+      .get('/requests/incoming-requests')
+      .then(res => res.data)
+      .catch(errHandler)
+  },
+
+  handleRequests(requestId, answer) {
+    return service
+      .put('/requests/handle-requests/' + requestId, answer)
+      .then(res => res.data)
+      .catch(errHandler)
+  },
+
   addCountry(body) {
     return service
       .post('/countries', body)
@@ -86,16 +107,15 @@ export default {
       .catch(errHandler)
   },
 
-  addPicture(file) {
-    const formData = new FormData()
-    formData.append('picture', file)
+  /*   addPicture(formData) {
+    
     return service
-      .post('/endpoint/to/add/a/picture', formData, {
+      .put('/user', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       })
       .then(res => res.data)
       .catch(errHandler)
-  },
+  }, */
 }
