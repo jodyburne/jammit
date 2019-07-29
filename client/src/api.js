@@ -87,6 +87,13 @@ getBoards() {
 },
 
 
+getAdDetail(adId){
+  console.log('HI THERE', adId)
+  return service
+    .get('/boards/' + adId)
+    .then(res => res.data)
+    .catch(errHandler)
+},
 
   //not yet tested
   getProfile() {
@@ -95,6 +102,13 @@ getBoards() {
       .then(res => res.data)
       .catch(errHandler)
   },
+
+addAd(uploadData) {
+  return service
+    .post('/postjam', uploadData)
+    .then(res => res.data)
+    .catch(errHandler)
+},
 
   addCountry(body) {
     return service

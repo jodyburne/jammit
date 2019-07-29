@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import api from '../../api'
+import { Link } from 'react-router-dom'
+
 
 export default function Boards () {
   const [state, setState] = useState({
@@ -63,16 +65,22 @@ function filterType(board){
           onChange={handleChange}
         />
         <label>Wanted</label>
-{boards.filter(board => 
+{boards
+.filter(board => 
   filterBySearch(board) &&
   filterType(board)
 )
 .map((board, i) => (
+ 
   <div key={i}>
+   <Link
+  to={"/boards/" + board._id}>
 <img src={board.imageURL} alt="" height='100'/>
+</Link>
 <h3>{board.title}</h3>
 <p>{board.description}</p>
 </div>
+  
 )
 )}
     </div>

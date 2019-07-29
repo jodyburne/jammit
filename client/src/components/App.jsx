@@ -8,7 +8,8 @@ import Signup from './pages/Signup'
 import api from '../api'
 import logo from '../logo.svg'
 import Boards from './pages/Boards'
-
+import AdDetail from './pages/AdDetail'
+import CreateAd from './pages/CreateAd'
 export default class App extends Component {
   constructor(props) {
     super(props)
@@ -45,7 +46,9 @@ export default class App extends Component {
         </header>
         <Switch>
           <Route path="/" exact component={Home} />
-          <Route path="/boards" component={Boards} />
+          <Route path="/boards" exact component={Boards} />
+          <Route path="/boards/:advertId" component={AdDetail} /> 
+          <Route path="/postjam" component={CreateAd} />
           <Route path="/user" component={Profile} />
           <Route path="/add-country" component={AddCountry} />
           <Route path="/signup" component={Signup} />

@@ -5,9 +5,11 @@ const advertSchema = new mongoose.Schema({
   _user: { type: Schema.Types.ObjectId, ref: 'User' },
   title: { type: String, require: true },
   description: { type: String, required: true },
+  location: String,
   date: Date,
   imageURL: { type: String, default: './../images/harrison.jpg' },
   advertType: { type: String, enum: ['wanted', 'jam'], required: true },
+  instruments: [String],
   comments: [
     { _user: { type: Schema.Types.ObjectId, ref: 'User' }, text: String },
   ] 

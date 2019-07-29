@@ -64,6 +64,15 @@ Post.find({_user: req.user._id})
 })
 })
 
+//get show off detail
+router.get('/showOffs/:showOffId', (req, res, next) => {
+  Post.findById(req.params.showOffId)
+    .then(ad => {
+      res.json(ad)
+    })
+    .catch(next)
+})
+
 //post a jam/wanted
 router.post('/postjam', isLoggedIn,  uploadCloud.single("file"), (req, res, next) => {
   console.log('YOOO')
@@ -75,8 +84,30 @@ router.post('/postjam', isLoggedIn,  uploadCloud.single("file"), (req, res, next
       console.log("req undefined");
       userImg = req.user.profilePic;
     }
-  const {title, description, advertType} = req.body
+  const advertType = req.body.advertType
+  console.log( 'REQBODYODYODY', req.body)
+  if (advertType === 'jam') {
+    console.log('creating...')
   Advert.create({
+    _user: req.user,
+  title: req.body.title,
+  description: req.body.description,
+  imageURL: userImg,
+  advertType: req.body.advertType,
+  location: req.body.location,
+  instruments: req.body.instruments
+  })
+     .then(ad => {
+    console.log("ad", ad)
+    res.json(ad);
+  })
+  .catch(err =>  {
+    console.log('error', err)
+    res.status(500).json({ message: 'Something went wrong' })
+  })
+  }
+  if(advertType === 'wanted'){
+     Advert.create({
     _user: req.user,
   title: title,
   description: description,
@@ -91,6 +122,7 @@ router.post('/postjam', isLoggedIn,  uploadCloud.single("file"), (req, res, next
     console.log('error', err)
     res.status(500).json({ message: 'Something went wrong' })
   })
+  }
 })
 
 //route to get both ads and posts not working, returning only ads
@@ -115,6 +147,15 @@ router.get('/boards', isLoggedIn, (req, res, next) => {
 })
 
 
+//get ad detail
+router.get('/boards/:advertId', (req, res, next) => {
+  console.log('yoooooooooooo', req.params.advertId)
+  Advert.findById(req.params.advertId)
+    .then(ad => {
+      res.json(ad)
+    })
+    .catch(next)
+})
 //gets user's own jams/wanted
 router.get('/myBoards', isLoggedIn, (req, res, next) => {
 
@@ -137,6 +178,8 @@ res.json({
    })
    .catch(err => next(err))
 })
+
+
 //edits a jam/wanted post
 router.put(
   '/myBoards/:advertId',
