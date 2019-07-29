@@ -20,7 +20,7 @@ router.put(
   uploadCloud.single('file'),
   (req, res, next) => {
     let userId = req.user._id
-
+    console.log(req)
     if (req.file) {
       req.data['profilePic'] = req.file.secure_url
     }
