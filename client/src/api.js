@@ -94,6 +94,13 @@ export default {
       .catch(errHandler)
   },
 
+  updateAd(profileData) {
+    return service
+      .put('/user', profileData)
+      .then(res => res.data)
+      .catch(errHandler)
+  },
+
   //not yet tested
   getProfile() {
     return service

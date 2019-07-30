@@ -36,7 +36,7 @@ export default function Map({ options, onMount, className, request }) {
     // Perform a nearby search.
     service.nearbySearch(
       {
-        location: { lat: 38.7255007, lng: -9.1808385 },
+        location: { lat: 38.7436057, lng: -9.2302439 },
         radius: 12500,
         keyword: 'jam sessions',
       },
@@ -75,7 +75,7 @@ export default function Map({ options, onMount, className, request }) {
 
 Map.defaultProps = {
   options: {
-    center: { lat: 38.7279179, lng: -9.1682008 },
+    center: { lat: 38.7436057, lng: -9.2302439 },
     zoom: 11.5,
   },
 }

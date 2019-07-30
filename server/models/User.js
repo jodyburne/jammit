@@ -8,7 +8,7 @@ const userSchema = new Schema(
     name: { type: String, required: true },
     bio: String,
     links: { type: [String], default: [] },
-    profilePic: String,
+    profilePic: {type: String, default: 'https://res.cloudinary.com/db6thgsbb/image/upload/v1564082198/jammit/keane1.jpg.jpg'},
     jamSpot: Boolean,
     gear: { type: [String], default: [] },
     skills: { type: [String], default: [] },

@@ -1,17 +1,25 @@
-import React, {useState} from 'react';
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import React, {useState, DatePicker} from 'react';
+import { Button, Form, FormGroup, Label, Input  } from 'reactstrap';
 import api from '../../api'
+import { Link } from 'react-router-dom'
 
 
 export default function CreateAd(props) {
+
+
 
 const [jam, setJam] = useState({
   title: '',
   description: '',
   location: '',
   imageURL: null,
-  advertType: 'jam'
+  advertType: 'jam',
+  date: new Date(),
+  time: '19:00',
+
 })
+
+const [instruments, setInstruments] = useState([])
 
   function handleInputChange(e) {
     setJam({
@@ -21,6 +29,34 @@ const [jam, setJam] = useState({
   
   }
 
+function handleAddField(e) {
+
+    let values
+  values = [...instruments]
+  values.push('')
+setInstruments(values)
+ 
+  }
+
+  function handleRemoveField(i, e) {
+   
+
+let values = []
+values = [...instruments]
+values.splice(i, 1)
+setInstruments(values)
+  }
+
+function handleEnter(e) {
+  if (e.keyCode === 13){
+      let values
+  values = [...instruments]
+  values.push(e.target.value)
+setInstruments(values)
+e.target.value = ''
+  }
+}
+
   function handleClickJam(e) {
  
     const uploadData = {
@@ -28,7 +64,10 @@ const [jam, setJam] = useState({
       description: jam.description,
       location: jam.location,
      imageURL: jam.imageURL,
-     advertType: jam.advertType
+     advertType: jam.advertType,
+    date: jam.date,
+    time: jam.time,
+    instruments: instruments
     }
 
     api.
@@ -42,31 +81,89 @@ const [jam, setJam] = useState({
      
   
     return (
+      <div>
+      
+      <h1>new jam</h1>
+
+
+<div class="btn-group btn-group-toggle" data-toggle="buttons">
+  <label class="btn btn-secondary active">
+    <input type="radio" name="options" id="option1" autocomplete="off" checked/> <Link to='/postwanted'>Jam</Link>
+  </label>
+  <label class="btn btn-secondary">
+    <input type="radio" name="options" id="option2" autocomplete="off"/> <Link to='/postwanted'>Wanted</Link>
+  </label>
+  <label class="btn btn-secondary">
+    <input type="radio" name="options" id="option3" autocomplete="off"/> Show Off
+  </label>
+</div>
+
+
+
       <Form>
         <FormGroup>
           <Label for="title">Title</Label> <br/>
           <Input type="title" onChange={handleInputChange} name="title" id="title" placeholder="late night jam" />
         </FormGroup>
         <FormGroup>
-          <Label for="description">Description</Label>  <br/>
+          <Label for="description">what how why?</Label>  <br/>
           <Input type="textarea"  onChange={handleInputChange} name="description" id="description" placeholder="bring your instruments to my place" />
         </FormGroup>
         <FormGroup>
-          <Label for="location">Location</Label>  <br/>
+          <Label for="location">Where? </Label>  <br/>
           <Input type="location"  onChange={handleInputChange} name="location" id="location" placeholder='Santos'/>
         </FormGroup>
+
+   <FormGroup>  
+   <Label for='date'>When?</Label> <br/>   
+  <Input type='date' name='date' onChange={handleInputChange} />
+   </FormGroup>     
+ <FormGroup>     
+  <Input type='time' name='time' onChange={handleInputChange} />
+   </FormGroup> 
         <FormGroup>
           <Label for="photo">Upload a photo</Label>  <br/>
-          <Input type="file" name="file" id="photo"/>
+          <Input type="file" onChange={handleInputChange}  name="file" id="photo" />
         </FormGroup>
+
         <FormGroup check>
           <Label check>  <br/>
             <Input type="checkbox" />{' '}
            I have instruments available
           </Label>
         </FormGroup>
+        <ul>
+{instruments.map(instru =>
+<li>{instru} </li>
+)}
+</ul>
+      <FormGroup>
+          <Label for="instruments">Instruments:</Label>
+          <Button type="button" id="instruments"onClick={e => handleAddField(e)} />+
+          {instruments.map((item, i) => (
+            <FormGroup key={`${item}-${i}`}>
+              <Input
+               onKeyDown={e => handleEnter(e)} 
+                type="text"
+                name="instruments"
+                id="instruments"
+                //value={item}
+                onChange={handleInputChange}
+              />
+              <Button
+                type="button"
+                id="instruments"
+                onClick={e => handleRemoveField(i, e)}
+              />
+              X
+            </FormGroup>
+          ))}
+        </FormGroup>
+
+
         <Button onClick={e => handleClickJam(e)}> Create </Button>
-      <pre>{JSON.stringify(jam, null, 2)}</pre>
       </Form>
+      
+      </div>
     );
   }

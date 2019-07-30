@@ -16,7 +16,6 @@ const bcrypt = require('bcrypt')
 const bcryptSalt = 10
 
 router.post('/signup', (req, res, next) => {
-console.log("POSTMAN TEST", req.body)
     const characters =
     "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
   let token = "";

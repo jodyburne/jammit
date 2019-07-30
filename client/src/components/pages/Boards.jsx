@@ -21,6 +21,7 @@ function handleChange(e) {
     setState({...state,
     [e.target.name]: 
     e.target.type === "checkbox" ? e.target.checked : e.target.value})
+   
   }
 
  function filterBySearch(board) {
@@ -41,6 +42,7 @@ function filterType(board){
 
   return  (
     <div>
+    <button><Link to='/postjam'>Post your own </Link></button>
     <h1>Boards</h1>
  <input
       type="text"
@@ -51,20 +53,54 @@ function filterType(board){
       onChange={handleChange}
    />
    <br/>
-<input
+
+ {/*toggle to tag remove active class not working, instead using ternary   */}
+
+<div class="btn-group btn-group-toggle" data-toggle="buttons">
+   
+  {state.jamsChecked ? <label name="jamsChecked" className="active btn btn-secondary">
+  <input
           type="checkbox"
           name="jamsChecked"
           checked={state.jamsChecked}
           onChange={handleChange}
-        />
-        <label>Jams</label>
-        <input
+        
+        /> Jams
+  </label>
+   : <label name="jamsChecked" className=" btn btn-secondary">
+   <input
+          type="checkbox"
+          name="jamsChecked"
+          checked={state.jamsChecked}
+          onChange={handleChange}
+        
+        /> Jams
+  </label>
+   } 
+
+  {state.wantedChecked ? <label name="wantedChecked" className="active btn btn-secondary">
+  <input
           type="checkbox"
           name="wantedChecked"
           checked={state.wantedChecked}
           onChange={handleChange}
-        />
-        <label>Wanted</label>
+        
+        /> wanted
+  </label>
+   : <label name="wantedChecked" className=" btn btn-secondary">
+   <input
+          type="checkbox"
+          name="wantedChecked"
+          checked={state.wantedChecked}
+          onChange={handleChange}
+        
+        /> wanted
+  </label>
+   }
+</div>
+
+
+
 {boards
 .filter(board => 
   filterBySearch(board) &&

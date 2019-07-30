@@ -11,6 +11,8 @@ import Boards from './pages/Boards'
 import AdDetail from './pages/AdDetail'
 import CreateAd from './pages/CreateAd'
 import Place from './pages/Place'
+import Wanted from './pages/Wanted'
+
 export default class App extends Component {
   constructor(props) {
     super(props)
@@ -26,21 +28,6 @@ export default class App extends Component {
   render() {
     return (
       <div className="App">
-        <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/boards" exact component={Boards} />
-          <Route path="/boards/:advertId" component={AdDetail} />
-          <Route path="/postjam" component={CreateAd} />
-          <Route path="/user" component={Profile} />
-          <Route path="/edit-user" component={EditProfile} />
-          <Route path="/request" component={Requests} />
-          <Route path="/places-map" component={Place} />
-          {/*           <Route path="/add-country" component={AddCountry} />
-           */}
-          <Route path="/signup" component={Signup} />
-          <Route path="/login" component={Login} />
-          <Route render={() => <h2>404</h2>} />
-        </Switch>
         <header className="App-header">
           <NavLink to="/" exact>
             Home
@@ -57,6 +44,22 @@ export default class App extends Component {
             </Link>
           )}
         </header>
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/boards" exact component={Boards} />
+          <Route path="/boards/:advertId" component={AdDetail} />
+          <Route path="/postjam" component={CreateAd} />
+          <Route path="/postwanted" component={Wanted} />
+          <Route path="/places-map" component={Place} />
+          <Route path="/user" component={Profile} />
+          <Route path="/edit-user" component={EditProfile} />
+          <Route path="/request" component={Requests} />
+          {/*           <Route path="/add-country" component={AddCountry} />
+           */}
+          <Route path="/signup" component={Signup} />
+          <Route path="/login" component={Login} />
+          <Route render={() => <h2>404</h2>} />
+        </Switch>
       </div>
     )
   }
