@@ -28,8 +28,8 @@ router.get('/create-request/:advertId', isLoggedIn, (req, res, next) => {
 /*This route returns user incoming requests*/
 router.get('/incoming-requests', isLoggedIn, (req, res, next) => {
   let userId = req.user._id
-
   Request.find({ _postOwner: userId })
+    .populate('_postOwner')
     .then(request => {
       res.json(request)
     })

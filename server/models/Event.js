@@ -1,12 +1,11 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const eventSchema = new mongoose.Schema({
- title: String,
- location: String,
- description: String,
- date: Date,
+const placeSchema = new mongoose.Schema({
+  title: String,
+  location: String,
+  description: String,
 })
 
-const Event = mongoose.model('Event', eventSchema)
-module.exports = Event
+const Place = mongoose.model('place', placeSchema)
+module.exports = Place
