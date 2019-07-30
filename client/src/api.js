@@ -90,10 +90,18 @@ getBoards() {
 getAdDetail(adId){
   console.log('HI THERE', adId)
   return service
-    .get('/boards/' + adId)
+    .get('/boards/' + adId,)
     .then(res => res.data)
     .catch(errHandler)
 },
+
+  updateAd(profileData) {
+    return service
+      .put('/user', profileData)
+      .then(res => res.data)
+      .catch(errHandler)
+  },
+
 
   //not yet tested
   getProfile() {
@@ -103,7 +111,7 @@ getAdDetail(adId){
       .catch(errHandler)
   },
 
-<<<<<<< HEAD
+
   updateProfile(profileData) {
     return service
       .put('/user', profileData)
@@ -124,14 +132,13 @@ getAdDetail(adId){
       .then(res => res.data)
       .catch(errHandler)
   },
-=======
+
 addAd(uploadData) {
   return service
     .post('/postjam', uploadData)
     .then(res => res.data)
     .catch(errHandler)
 },
->>>>>>> e15d68e647dcc909c59dc195b3398d847a7920a8
 
   addCountry(body) {
     return service

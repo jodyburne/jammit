@@ -15,8 +15,11 @@ const [jam, setJam] = useState({
   imageURL: null,
   advertType: 'jam',
   date: new Date(),
-  time: '19:00'
+  time: '19:00',
+
 })
+
+const [instruments, setInstruments] = useState([])
 
   function handleInputChange(e) {
     setJam({
@@ -26,7 +29,33 @@ const [jam, setJam] = useState({
   
   }
 
+function handleAddField(e) {
 
+    let values
+  values = [...instruments]
+  values.push('')
+setInstruments(values)
+ 
+  }
+
+  function handleRemoveField(i, e) {
+   
+
+let values = []
+values = [...instruments]
+values.splice(i, 1)
+setInstruments(values)
+  }
+
+function handleEnter(e) {
+  if (e.keyCode === 13){
+      let values
+  values = [...instruments]
+  values.push(e.target.value)
+setInstruments(values)
+e.target.value = ''
+  }
+}
 
   function handleClickJam(e) {
  
@@ -37,7 +66,8 @@ const [jam, setJam] = useState({
      imageURL: jam.imageURL,
      advertType: jam.advertType,
     date: jam.date,
-    time: jam.time
+    time: jam.time,
+    instruments: instruments
     }
 
     api.
@@ -54,7 +84,22 @@ const [jam, setJam] = useState({
       <div>
       
       <h1>new jam</h1>
-      <Button ><Link to='/postwanted'>Wanted</Link></Button>
+
+
+<div class="btn-group btn-group-toggle" data-toggle="buttons">
+  <label class="btn btn-secondary active">
+    <input type="radio" name="options" id="option1" autocomplete="off" checked/> <Link to='/postwanted'>Jam</Link>
+  </label>
+  <label class="btn btn-secondary">
+    <input type="radio" name="options" id="option2" autocomplete="off"/> <Link to='/postwanted'>Wanted</Link>
+  </label>
+  <label class="btn btn-secondary">
+    <input type="radio" name="options" id="option3" autocomplete="off"/> Show Off
+  </label>
+</div>
+
+
+
       <Form>
         <FormGroup>
           <Label for="title">Title</Label> <br/>
@@ -80,12 +125,42 @@ const [jam, setJam] = useState({
           <Label for="photo">Upload a photo</Label>  <br/>
           <Input type="file" onChange={handleInputChange}  name="file" id="photo" />
         </FormGroup>
+
         <FormGroup check>
           <Label check>  <br/>
             <Input type="checkbox" />{' '}
            I have instruments available
           </Label>
         </FormGroup>
+        <ul>
+{instruments.map(instru =>
+<li>{instru} </li>
+)}
+</ul>
+      <FormGroup>
+          <Label for="instruments">Instruments:</Label>
+          <Button type="button" id="instruments"onClick={e => handleAddField(e)} />+
+          {instruments.map((item, i) => (
+            <FormGroup key={`${item}-${i}`}>
+              <Input
+               onKeyDown={e => handleEnter(e)} 
+                type="text"
+                name="instruments"
+                id="instruments"
+                //value={item}
+                onChange={handleInputChange}
+              />
+              <Button
+                type="button"
+                id="instruments"
+                onClick={e => handleRemoveField(i, e)}
+              />
+              X
+            </FormGroup>
+          ))}
+        </FormGroup>
+
+
         <Button onClick={e => handleClickJam(e)}> Create </Button>
       </Form>
       

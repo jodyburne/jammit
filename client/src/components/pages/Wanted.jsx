@@ -46,7 +46,18 @@ const [wanted, setWanted] = useState({
       <div>
       <h1> wanted</h1>
       
-      <Button ><Link to='/postjam'>Jam</Link></Button>
+<div class="btn-group btn-group-toggle" data-toggle="buttons">
+  <label class="btn btn-secondary ">
+    <input type="radio" name="options" id="option1" autocomplete="off" /> <Link to='/postjam'>Jam</Link>
+  </label>
+  <label class="btn btn-secondary active">
+    <input type="radio" name="options" id="option2" autocomplete="off" checked/> <Link to='/postwanted'>Wanted</Link>
+  </label>
+  <label class="btn btn-secondary">
+    <input type="radio" name="options" id="option3" autocomplete="off"/> Show Off
+  </label>
+</div>
+
       <Form>
         <FormGroup>
           <Label for="title">Title</Label> <br/>
