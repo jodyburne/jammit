@@ -144,7 +144,6 @@ export default function Profile() {
                 type="text"
                 name="links"
                 id="links"
-                value={link}
                 placeholder="my soundcloud url..."
                 onChange={handleInputChange}
               />
@@ -167,7 +166,6 @@ export default function Profile() {
                 type="text"
                 name="gear"
                 id="gear"
-                value={item}
                 onChange={handleInputChange}
               />
               <Button
@@ -189,7 +187,6 @@ export default function Profile() {
                 type="text"
                 name="skills"
                 id="skills"
-                value={skill}
                 onChange={handleInputChange}
               />
               <Button

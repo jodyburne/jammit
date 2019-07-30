@@ -4,7 +4,9 @@ const Schema = mongoose.Schema
 const placeSchema = new mongoose.Schema({
   title: String,
   location: String,
-  description: String,
+  openFrom: Date,
+  openUntil: Date,
+  image: String,
 })
 
 const Place = mongoose.model('place', placeSchema)

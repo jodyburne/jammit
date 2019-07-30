@@ -7,10 +7,10 @@ import Requests from './pages/Requests'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import api from '../api'
-import logo from '../logo.svg'
 import Boards from './pages/Boards'
 import AdDetail from './pages/AdDetail'
 import CreateAd from './pages/CreateAd'
+import Place from './pages/Place'
 export default class App extends Component {
   constructor(props) {
     super(props)
@@ -26,12 +26,25 @@ export default class App extends Component {
   render() {
     return (
       <div className="App">
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/boards" exact component={Boards} />
+          <Route path="/boards/:advertId" component={AdDetail} />
+          <Route path="/postjam" component={CreateAd} />
+          <Route path="/user" component={Profile} />
+          <Route path="/edit-user" component={EditProfile} />
+          <Route path="/request" component={Requests} />
+          <Route path="/places-map" component={Place} />
+          {/*           <Route path="/add-country" component={AddCountry} />
+           */}
+          <Route path="/signup" component={Signup} />
+          <Route path="/login" component={Login} />
+          <Route render={() => <h2>404</h2>} />
+        </Switch>
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">MERN Boilerplate</h1>
           <NavLink to="/" exact>
             Home
-          </NavLink>          
+          </NavLink>
           <NavLink to="/boards">Boards</NavLink>
           <NavLink to="/countries">Countries</NavLink>
           <NavLink to="/user">Profile</NavLink>
@@ -43,22 +56,7 @@ export default class App extends Component {
               Logout
             </Link>
           )}
-          <NavLink to="/secret">Secret</NavLink>
         </header>
-        <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/boards" exact component={Boards} />
-          <Route path="/boards/:advertId" component={AdDetail} /> 
-          <Route path="/postjam" component={CreateAd} />
-          <Route path="/user" component={Profile} />
-          <Route path="/edit-user" component={EditProfile} />
-          <Route path="/request" component={Requests} />
-          {/*           <Route path="/add-country" component={AddCountry} />
-           */}
-          <Route path="/signup" component={Signup} />
-          <Route path="/login" component={Login} />
-          <Route render={() => <h2>404</h2>} />
-        </Switch>
       </div>
     )
   }
