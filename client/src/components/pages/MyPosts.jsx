@@ -44,7 +44,7 @@ function handleChange(e) {
 
  function filterBySearch(board) {
     return (
-      board.title.toUpperCase().startsWith(state.search.toUpperCase())
+      board.title.toUpperCase().includes(state.search.toUpperCase())
     )
   }
 
