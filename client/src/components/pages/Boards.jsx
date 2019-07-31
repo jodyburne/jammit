@@ -138,7 +138,7 @@ function filterType(board){
   <div className='homeCard' key={i}>
    <Link
   to={"/boards/" + board._id}>
-<img src={board.imageURL} alt="" height='200'/>
+<img src={board.imageURL} alt=""/>
 </Link>
 <h3>{board.title}</h3>
 <p>{board.description}</p>
