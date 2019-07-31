@@ -86,6 +86,20 @@ export default {
       .catch(errHandler)
   },
 
+  getMyBoards() {
+    return service
+      .get('/myBoards')
+      .then(res => res.data)
+      .catch(errHandler)
+  },
+
+deletePost(adId) {
+    return service
+      .delete('/myBoards/' + adId)
+      .then(res => res.data)
+      .catch(errHandler)
+  },
+
   getAdDetail(adId) {
     console.log('HI THERE', adId)
     return service

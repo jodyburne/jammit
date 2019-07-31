@@ -60,44 +60,6 @@ router.post('/showOff', isLoggedIn, uploadCloud.single('file'), (req,res,next) =
 
 })
 
-//delete a showoff
-router.delete('/myBoards/:postId', isLoggedIn, (req, res, next) => {
-Post.findById(req.params.postId)
-Post.deleteOne({_id: req.params.postId})
- .then( post => {
-res.json({
-  success: true,
-  message: 'post deleted',
-})
-   })
-   .catch(err => next(err))
-})
-
-
-//get all showoffs
-router.get('/showOffs', (req, res, next) => {
-  Post.find()
-  .then(posts => {
-    res.json(posts)
-  })
-})
-
-//get all user's showoffs
-router.get('/myBoards/showOffs', isLoggedIn, (req, res, next) => {
-Post.find({_user: req.user._id})
-.then(posts => {
-  res.json(posts)
-})
-})
-
-//get show off detail
-router.get('/showOffs/:showOffId', (req, res, next) => {
-  Post.findById(req.params.showOffId)
-    .then(ad => {
-      res.json(ad)
-    })
-    .catch(next)
-})
 
 //post a jam/wanted
 router.post('/postjam', isLoggedIn,  uploadCloud.single("file"), (req, res, next) => {
@@ -159,20 +121,8 @@ router.post('/postwanted', isLoggedIn,  uploadCloud.single("file"), (req, res, n
   })
   })
 
-//route to get both ads and posts 
 
-// router.get('/boards', isLoggedIn, (req, res, next) => {
-//   Promise.all([
-//     Post.find(),
-//     Advert.find()
-//   ])
-//   .then(([post, ad]) => {
-//     res.json([post, ad])
-//   })
-//   .catch(err => next(err))
-// })
-
-// gets all jams and wanted
+// gets all ads
 router.get('/boards', isLoggedIn, (req, res, next) => {
   Advert.find()
   .then(ads => {
@@ -197,7 +147,7 @@ router.get('/boards/:advertId', (req, res, next) => {
 })
 
 
-//gets user's own jams/wanted
+//gets user's own ads
 router.get('/myBoards', isLoggedIn, (req, res, next) => {
 
 Advert.find({_user: req.user._id})

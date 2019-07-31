@@ -13,6 +13,7 @@ import CreateAd from './pages/CreateAd'
 import Place from './pages/Place'
 import Wanted from './pages/Wanted'
 import ShowOff from './pages/ShowOff'
+import MyPosts from './pages/MyPosts'
 
 export default class App extends Component {
   constructor(props) {
@@ -48,6 +49,7 @@ export default class App extends Component {
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/boards" exact component={Boards} />
+          <Route path="/myBoards" exact component={MyPosts} />
           <Route path="/boards/:advertId" component={AdDetail} />
           <Route path="/postjam" component={CreateAd} />
           <Route path="/postwanted" component={Wanted} />
