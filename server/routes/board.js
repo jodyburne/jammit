@@ -97,10 +97,8 @@ router.post('/postwanted', isLoggedIn,  uploadCloud.single("file"), (req, res, n
   let userImg = "";
     if (req.file) {
       userImg = req.file.secure_url;
-      console.log(req.file)
     } else {
-      console.log("req undefined");
-      userImg = req.user.profilePic;
+      userImg = 'https://us.123rf.com/450wm/viktorijareut/viktorijareut1505/viktorijareut150500460/40212673-stock-vector-red-rubber-stamp-with-text-wanted-vector-isolated-on-white.jpg?ver=6';
     }
   console.log( 'REQBODYODYODY', req.body)
      Advert.create({

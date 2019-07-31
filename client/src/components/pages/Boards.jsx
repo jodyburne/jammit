@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react'
 import api from '../../api'
 import { Link } from 'react-router-dom'
-
+import { InputGroup, InputGroupAddon, InputGroupText, Input, 
+Button, Form, FormGroup, Label, FormText  } from 'reactstrap';
 
 export default function Boards () {
   const [state, setState] = useState({
@@ -27,7 +28,7 @@ function handleChange(e) {
 
  function filterBySearch(board) {
     return (
-      board.title.toUpperCase().startsWith(state.search.toUpperCase())
+      board.title.toUpperCase().includes(state.search.toUpperCase())
     )
   }
 
@@ -44,21 +45,25 @@ function filterType(board){
 
   return  (
     <div>
-    <button><Link to='/postjam'>Post your own </Link></button>
-    <h1>Boards</h1>
- <input
+    <Button><Link to='/postjam'>Post your own </Link></Button>
+    <h1>Notice Board</h1>
+    <InputGroup>
+        <InputGroupAddon addonType="append">?</InputGroupAddon>
+        <Input 
       type="text"
       className="search-bar"
       placeholder="new tune"
       name="search"
       value={state.search}
       onChange={handleChange}
-   />
+        />
+      </InputGroup>
+ 
    <br/>
 
  {/*toggle to tag remove active class not working, instead using ternary   */}
 
-<div class="btn-group btn-group-toggle" data-toggle="buttons">
+<div className="btn-group btn-group-toggle" data-toggle="buttons">
    
   {state.jamsChecked ? <label name="jamsChecked" className="active btn btn-secondary">
   <input
@@ -130,10 +135,10 @@ function filterType(board){
 )
 .map((board, i) => (
  
-  <div key={i}>
+  <div className='homeCard' key={i}>
    <Link
   to={"/boards/" + board._id}>
-<img src={board.imageURL} alt="" height='100'/>
+<img src={board.imageURL} alt="" height='200'/>
 </Link>
 <h3>{board.title}</h3>
 <p>{board.description}</p>

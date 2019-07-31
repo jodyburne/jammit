@@ -1,5 +1,9 @@
 import React, { Component } from 'react'
 import api from '../../api'
+import { InputGroup, InputGroupAddon, InputGroupText, Input, 
+Button, Form, FormGroup, Label, FormText  } from 'reactstrap';
+import { Link } from 'react-router-dom'
+
 
 export default class Login extends Component {
   constructor(props) {
@@ -31,27 +35,43 @@ export default class Login extends Component {
 
   render() {
     return (
-      <div className="Login">
-        <h2>Login</h2>
-        <form>
-          email:{' '}
-          <input
+      <div className="Login w-75 m-auto" >
+        <h2>Welcome back!</h2>
+       <Form>
+        <FormGroup>
+          <Label for="exampleEmail">Email</Label>
+         <InputGroup>
+        <InputGroupAddon addonType="append">@</InputGroupAddon>
+        <Input placeholder="david@bowie.com" 
             type="text"
             value={this.state.email}
             name="email"
             onChange={this.handleInputChange}
-          />{' '}
-          <br />
-          Password:{' '}
-          <input
+        />
+      </InputGroup>
+      </FormGroup>
+      <br />
+         
+         <FormGroup>
+          <Label for="exampleEmail">Password</Label>
+         <InputGroup>
+        <InputGroupAddon addonType="append">*</InputGroupAddon>
+        <Input placeholder="********" 
             type="password"
             value={this.state.password}
             name="password"
             onChange={this.handleInputChange}
-          />{' '}
+        />
+      </InputGroup>
+      </FormGroup>
+            
+          
           <br />
-          <button onClick={e => this.handleClick(e)}>Login</button>
-        </form>
+          <Button onClick={e => this.handleClick(e)}>Login</Button>
+        </Form>
+
+        <br/>
+        <p> Don't have an account? <Link to='/signup'>Sign up</Link> </p>
         {this.state.message && (
           <div className="info info-danger">{this.state.message}</div>
         )}
