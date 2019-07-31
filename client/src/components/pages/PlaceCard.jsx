@@ -10,8 +10,6 @@ import {
 } from 'reactstrap'
 
 export default function PlaceCard(place) {
-  console.log('DEBUUUUUG')
-  console.log(place)
   return (
     <Card>
       <CardImg

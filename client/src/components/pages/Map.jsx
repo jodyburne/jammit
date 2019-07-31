@@ -53,18 +53,12 @@ export default function Map({ options, onMount, className, request }) {
       })
 
       bounds.extend(places[i].geometry.location)
+      placesList.push(places[i])
+      setPlacesList(placesList)
 
       window.google.maps.event.addListener(marker, 'click', function() {
-        /* setPlaceContent({
-          title: marker.title,
-          position: marker.position,
-          vicinity: places[i].vicinity,
-        }) */
-        console.log(places[i])
         setSinglePlace(places[i])
         setShowCard({ display: 'block' })
-
-        setPlacesList(placesList.push(places[i]))
       })
     }
     map.fitBounds(bounds)
@@ -103,6 +97,7 @@ export default function Map({ options, onMount, className, request }) {
       let places = searchBox.getPlaces()
       let markers = []
       setPlacesList([])
+      console.log("i'm being empty")
 
       if (places.length === 0) {
         getCurrentLocation()
@@ -183,20 +178,21 @@ export default function Map({ options, onMount, className, request }) {
 
   function handleViewMode() {
     if (mapView) {
-      setShowList({ display: 'none' })
+      setShowList({ display: 'block' })
       setMapStyle({
         ...mapStyle,
         display: 'none',
       })
       setShowCard({ display: 'none' })
     } else {
-      setShowList({ display: 'block' })
+      setShowList({ display: 'none' })
       setMapStyle({
         ...mapStyle,
         display: 'block',
       })
     }
-    setMapView(false)
+
+    setMapView(!mapView)
   }
 
   return (
@@ -208,8 +204,14 @@ export default function Map({ options, onMount, className, request }) {
       </div>
       <Button onClick={handleViewMode} /> List View / Map View
       <div className="ListContainer" style={showList}>
-        {placesList.map(place => (
-          <PlaceCard {...place} />
+        {console.log(
+          'this is the list status:',
+          showList,
+          'this is the list of places:',
+          placesList
+        )}
+        {placesList.map((place, i) => (
+          <PlaceCard {...place} key={i} />
         ))}
       </div>
     </div>
