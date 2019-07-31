@@ -71,29 +71,28 @@ export default {
       .then(res => res.data)
       .catch(errHandler)
   },
-//not yet tested
-// getProfile() {
-//   return service 
-//   .get('/user')
-//   .then(res => res.data)
-//   .catch(errHandler)
-// }
+  //not yet tested
+  // getProfile() {
+  //   return service
+  //   .get('/user')
+  //   .then(res => res.data)
+  //   .catch(errHandler)
+  // }
 
-getBoards() {
-  return service 
-    .get('/boards')
-    .then(res => res.data)
-    .catch(errHandler)
-},
+  getBoards() {
+    return service
+      .get('/boards')
+      .then(res => res.data)
+      .catch(errHandler)
+  },
 
-
-getAdDetail(adId){
-  console.log('HI THERE', adId)
-  return service
-    .get('/boards/' + adId,)
-    .then(res => res.data)
-    .catch(errHandler)
-},
+  getAdDetail(adId) {
+    console.log('HI THERE', adId)
+    return service
+      .get('/boards/' + adId)
+      .then(res => res.data)
+      .catch(errHandler)
+  },
 
 addComment(uploadData, adId){
   return service
@@ -108,7 +107,6 @@ addComment(uploadData, adId){
       .catch(errHandler)
   },
 
-
   //not yet tested
   getProfile() {
     return service
@@ -116,7 +114,6 @@ addComment(uploadData, adId){
       .then(res => res.data)
       .catch(errHandler)
   },
-
 
   updateProfile(profileData) {
     return service
@@ -138,13 +135,12 @@ addComment(uploadData, adId){
       .then(res => res.data)
       .catch(errHandler)
   },
-
-addAd(uploadData) {
-  return service
-    .post('/postjam', uploadData)
-    .then(res => res.data)
-    .catch(errHandler)
-},
+  addAd(uploadData) {
+    return service
+      .post('/postjam', uploadData)
+      .then(res => res.data)
+      .catch(errHandler)
+  },
 
 addPost(uploadData) {
   return service
