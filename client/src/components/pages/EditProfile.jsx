@@ -75,10 +75,12 @@ export default function Profile() {
     profileData.append('file', file)
     profileData.append('name', user.name)
     profileData.append('bio', user.bio)
-    profileData.append('links', user.links)
+    /*  profileData.append('links', user.links)
     profileData.append('gear', user.gear)
     profileData.append('skills', user.skills)
-    profileData.append('jamSpot', user.jamSpot)
+    profileData.append('jamSpot', user.jamSpot) */
+    console.log('TCL: handleSubmit -> profileData', profileData.get('name'))
+    console.log('TCL: handleSubmit -> profileData', profileData.get('skills'))
 
     api
       .updateProfile(profileData)
@@ -166,6 +168,7 @@ export default function Profile() {
                 type="text"
                 name="gear"
                 id="gear"
+                value={item}
                 onChange={handleInputChange}
               />
               <Button
@@ -202,6 +205,8 @@ export default function Profile() {
         <Button>Submit</Button>
       </Form>
       {message && <div className="info">{message}</div>}
+
+      <pre>{JSON.stringify(user, null, 2)}</pre>
     </div>
   )
 }

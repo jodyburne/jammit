@@ -16,8 +16,8 @@ router.get('/', isLoggedIn, (req, res, next) => {
 router.put(
   '/',
   isLoggedIn,
-  defineData(['bio', 'links', 'jamSpot', 'gear', 'skills', 'name']),
   uploadCloud.single('file'),
+  defineData(['bio', 'links', 'jamSpot', 'gear', 'skills', 'name']),
   (req, res, next) => {
     let userId = req.user._id
     console.log(req)
