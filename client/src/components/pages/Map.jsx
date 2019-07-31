@@ -1,13 +1,19 @@
 import React, { useEffect, useRef, useState } from 'react'
 import PlaceCard from './PlaceCard'
-import { Input } from 'reactstrap'
+import { Input, Button } from 'reactstrap'
 
 export default function Map({ options, onMount, className, request }) {
   const props = { ref: useRef(), className }
   const [map, setMap] = useState(undefined)
   const [service, setService] = useState(undefined)
-  console.log('TCL: -> map', map)
-  console.log('TCL: -> service', service)
+  const [mapView, setMapView] = useState(true)
+  const [showList, setShowList] = useState({ display: 'none' })
+
+  const [mapStyle, setMapStyle] = useState({
+    height: `70vh`,
+    margin: `1em 0`,
+    borderRadius: `0.5em`,
+  })
 
   const [currentLocation, setCurrentLocation] = useState(getCurrentLocation())
   const [placeContent, setPlaceContent] = useState({
@@ -18,6 +24,11 @@ export default function Map({ options, onMount, className, request }) {
   })
   const [showCard, setShowCard] = useState({ display: 'none' })
   const [placesList, setPlacesList] = useState([])
+  const [singlePlace, setSinglePlace] = useState({
+    name: 'Empty',
+    vinicity: 'Empty',
+    photos: [],
+  })
 
   function getCurrentLocation() {
     if (navigator.geolocation) {
@@ -35,7 +46,6 @@ export default function Map({ options, onMount, className, request }) {
     let bounds = new window.google.maps.LatLngBounds()
 
     for (let i = 0; i < places.length; i++) {
-      console.log(places[i])
       let marker = new window.google.maps.Marker({
         map: map,
         title: places[i].name,
@@ -45,13 +55,16 @@ export default function Map({ options, onMount, className, request }) {
       bounds.extend(places[i].geometry.location)
 
       window.google.maps.event.addListener(marker, 'click', function() {
-        setPlaceContent({
+        /* setPlaceContent({
           title: marker.title,
           position: marker.position,
           vicinity: places[i].vicinity,
-        })
+        }) */
+        console.log(places[i])
+        setSinglePlace(places[i])
         setShowCard({ display: 'block' })
-        setPlacesList({ ...placesList, placeContent })
+
+        setPlacesList(placesList.push(places[i]))
       })
     }
     map.fitBounds(bounds)
@@ -81,7 +94,6 @@ export default function Map({ options, onMount, className, request }) {
 
     let input = document.getElementById('pac-input')
     let searchBox = new window.google.maps.places.SearchBox(input)
-    map.controls[window.google.maps.ControlPosition.TOP_LEFT].push(input)
 
     map.addListener('bounds_changed', function() {
       searchBox.setBounds(map.getBounds())
@@ -90,6 +102,7 @@ export default function Map({ options, onMount, className, request }) {
     searchBox.addListener('places_changed', function() {
       let places = searchBox.getPlaces()
       let markers = []
+      setPlacesList([])
 
       if (places.length === 0) {
         getCurrentLocation()
@@ -147,7 +160,6 @@ export default function Map({ options, onMount, className, request }) {
   }
 
   useEffect(() => {
-    console.log('DEBUG currentLocation')
     if (window.google) {
       findAndCreateMarkers()
     }
@@ -169,15 +181,36 @@ export default function Map({ options, onMount, className, request }) {
     } else onLoad()
   }, [])
 
+  function handleViewMode() {
+    if (mapView) {
+      setShowList({ display: 'none' })
+      setMapStyle({
+        ...mapStyle,
+        display: 'none',
+      })
+      setShowCard({ display: 'none' })
+    } else {
+      setShowList({ display: 'block' })
+      setMapStyle({
+        ...mapStyle,
+        display: 'block',
+      })
+    }
+    setMapView(false)
+  }
+
   return (
-    <div>
+    <div className="placesContainer">
       <Input id="pac-input" />
-      <div
-        {...props}
-        style={{ height: `70vh`, margin: `1em 0`, borderRadius: `0.5em` }}
-      />
+      <div {...props} style={mapStyle} />
       <div style={showCard}>
-        <PlaceCard content={placeContent} />
+        <PlaceCard {...singlePlace} />
+      </div>
+      <Button onClick={handleViewMode} /> List View / Map View
+      <div className="ListContainer" style={showList}>
+        {placesList.map(place => (
+          <PlaceCard {...place} />
+        ))}
       </div>
     </div>
   )
@@ -188,5 +221,6 @@ Map.defaultProps = {
     center: { lat: 38.7436057, lng: -9.2302439 },
     zoom: 11.5,
     mapTypeControl: false,
+    fullscreenControl: false,
   },
 }
