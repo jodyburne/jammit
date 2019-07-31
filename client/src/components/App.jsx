@@ -23,21 +23,6 @@ export default class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <NavLink to="/" exact>
-            Home
-          </NavLink>
-          <NavLink to="/boards">Boards</NavLink>
-          <NavLink to="/user">Profile</NavLink>
-          <NavLink to="/add-country">Add country</NavLink>
-          {!api.isLoggedIn() && <NavLink to="/signup">Signup</NavLink>}
-          {!api.isLoggedIn() && <NavLink to="/login">Login</NavLink>}
-          {api.isLoggedIn() && (
-            <Link to="/" onClick={e => this.handleLogoutClick(e)}>
-              Logout
-            </Link>
-          )}
-        </header>
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/boards" exact component={Boards} />
@@ -56,6 +41,24 @@ export default class App extends Component {
           <Route path="/login" component={Login} />
           <Route render={() => <h2>404</h2>} />
         </Switch>
+        <header className="App-header">
+          <NavLink to="/" exact>
+            Home
+          </NavLink>
+
+          <div className="board-icon" href="/boards">
+            {/*  <NavLink to="/boards" /> */}
+          </div>
+          <NavLink to="/user">Profile</NavLink>
+          <NavLink to="/add-country">Add country</NavLink>
+          {!api.isLoggedIn() && <NavLink to="/signup">Signup</NavLink>}
+          {!api.isLoggedIn() && <NavLink to="/login">Login</NavLink>}
+          {api.isLoggedIn() && (
+            <Link to="/" onClick={e => this.handleLogoutClick(e)}>
+              Logout
+            </Link>
+          )}
+        </header>
       </div>
     )
   }

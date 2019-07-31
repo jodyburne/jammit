@@ -12,16 +12,28 @@ export default function Profile() {
 
   return (
     <div className="Profile">
-      <h2>User</h2>
       {
         <div>
-          <p>{user.name}</p>
-          <img src={user.profilePic} />
-          <p>{user.bio}</p>
-          <p>{user.links}</p>
-          <p>{user.jamSpot}</p>
-          <p>{user.gear}</p>
-          <p>{user.skills}</p>
+          <img src={user.profilePic} className="profilePicture" />
+          <div className="profileBackgroundSquare">
+            <div className="profileText">
+              <h3>{user.name}</h3>
+              <p>{user.bio}</p>
+              <p>Gear:</p>
+              {user.gear.map(item => (
+                <span className="profile-badge">{item}</span>
+              ))}
+              <p>Skills:</p>
+              {user.skills.map(item => (
+                <span className="profile-badge">{item}</span>
+              ))}
+              <p>{user.jamSpot && 'I have a jam spot!'}</p>
+              <p>{user.links.length > 0 && 'More about me:'}</p>
+              {user.links.map(item => (
+                <span className="profile-badge">{item}</span>
+              ))}
+            </div>
+          </div>
         </div>
       }
     </div>
