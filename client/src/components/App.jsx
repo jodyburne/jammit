@@ -14,13 +14,6 @@ import Place from './pages/Place'
 import Wanted from './pages/Wanted'
 
 export default class App extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      countries: [],
-    }
-  }
-
   handleLogoutClick(e) {
     api.logout()
   }
@@ -33,7 +26,6 @@ export default class App extends Component {
             Home
           </NavLink>
           <NavLink to="/boards">Boards</NavLink>
-          <NavLink to="/countries">Countries</NavLink>
           <NavLink to="/user">Profile</NavLink>
           <NavLink to="/add-country">Add country</NavLink>
           {!api.isLoggedIn() && <NavLink to="/signup">Signup</NavLink>}

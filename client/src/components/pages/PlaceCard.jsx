@@ -19,13 +19,10 @@ export default function PlaceCard(props) {
         alt="Card image cap"
       />
       <CardBody>
-        <CardTitle>Card title</CardTitle>
-        <CardSubtitle>Card subtitle</CardSubtitle>
-        <CardText>
-          This is a wider card with supporting text below as a natural lead-in
-          to additional content. This content is a little bit longer.
-        </CardText>
-        <Button>Button</Button>
+        <CardTitle>{props.content.title}</CardTitle>
+        <CardSubtitle>{props.content.vicinity}</CardSubtitle>
+        <CardText />
+        <Button>More</Button>
       </CardBody>
     </Card>
   )
