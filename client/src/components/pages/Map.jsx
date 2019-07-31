@@ -4,6 +4,11 @@ import { Input } from 'reactstrap'
 
 export default function Map({ options, onMount, className, request }) {
   const props = { ref: useRef(), className }
+  const [map, setMap] = useState(undefined)
+  const [service, setService] = useState(undefined)
+  console.log('TCL: -> map', map)
+  console.log('TCL: -> service', service)
+
   const [currentLocation, setCurrentLocation] = useState(getCurrentLocation())
   const [placeContent, setPlaceContent] = useState({
     title: ' ',
@@ -52,11 +57,30 @@ export default function Map({ options, onMount, className, request }) {
     map.fitBounds(bounds)
   }
 
+  function findAndCreateMarkers() {
+    if (currentLocation) {
+      service.nearbySearch(
+        {
+          location: currentLocation,
+          radius: 50500,
+          keyword: 'jam sessions',
+        },
+        function(results, status, pagination) {
+          if (status !== 'OK') return
+          createMarkers(results, map)
+        }
+      )
+    }
+  }
+
   const onLoad = () => {
-    const map = new window.google.maps.Map(props.ref.current, options)
+    let map = new window.google.maps.Map(props.ref.current, options)
+    let service = new window.google.maps.places.PlacesService(map)
+    setMap(map)
+    setService(service)
+
     let input = document.getElementById('pac-input')
     let searchBox = new window.google.maps.places.SearchBox(input)
-    let service = new window.google.maps.places.PlacesService(map)
     map.controls[window.google.maps.ControlPosition.TOP_LEFT].push(input)
 
     map.addListener('bounds_changed', function() {
@@ -117,21 +141,17 @@ export default function Map({ options, onMount, className, request }) {
       map.fitBounds(bounds)
     })
 
-    service.nearbySearch(
-      {
-        location: currentLocation,
-        radius: 50500,
-        keyword: 'jam sessions',
-      },
-
-      function(results, status, pagination) {
-        if (status !== 'OK') return
-        createMarkers(results, map)
-      }
-    )
+    findAndCreateMarkers()
 
     onMount && onMount(map)
   }
+
+  useEffect(() => {
+    console.log('DEBUG currentLocation')
+    if (window.google) {
+      findAndCreateMarkers()
+    }
+  }, [currentLocation])
 
   useEffect(() => {
     if (!window.google) {
@@ -167,5 +187,6 @@ Map.defaultProps = {
   options: {
     center: { lat: 38.7436057, lng: -9.2302439 },
     zoom: 11.5,
+    mapTypeControl: false,
   },
 }
