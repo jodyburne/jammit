@@ -3,13 +3,13 @@ const Schema = mongoose.Schema
 
 const advertSchema = new mongoose.Schema({
   _user: { type: Schema.Types.ObjectId, ref: 'User' },
-  title: { type: String, require: true },
-  description: { type: String, required: true },
+  title: { type: String, required: true },
+  description: String,
   location: String,
   date: Date,
   time: String,
   imageURL: { type: String, default: './../images/harrison.jpg' },
-  advertType: { type: String, enum: ['wanted', 'jam'], required: true },
+  advertType: { type: String, enum: ['wanted', 'jam', 'showOff'], required: true },
   instruments: [String],
   // comments: {type: [ { type: Schema.Types.ObjectId, ref: 'Comment' }  ] } 
   

@@ -12,6 +12,8 @@ import AdDetail from './pages/AdDetail'
 import CreateAd from './pages/CreateAd'
 import Place from './pages/Place'
 import Wanted from './pages/Wanted'
+import ShowOff from './pages/ShowOff'
+import MyPosts from './pages/MyPosts'
 
 export default class App extends Component {
   handleLogoutClick(e) {
@@ -39,9 +41,11 @@ export default class App extends Component {
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/boards" exact component={Boards} />
+          <Route path="/myBoards" exact component={MyPosts} />
           <Route path="/boards/:advertId" component={AdDetail} />
           <Route path="/postjam" component={CreateAd} />
           <Route path="/postwanted" component={Wanted} />
+          <Route path="/showOff" component={ShowOff} />
           <Route path="/places-map" component={Place} />
           <Route path="/user" component={Profile} />
           <Route path="/edit-user" component={EditProfile} />

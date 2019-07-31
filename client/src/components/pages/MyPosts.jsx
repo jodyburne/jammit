@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react'
 import api from '../../api'
 import { Link } from 'react-router-dom'
+import { Button } from 'reactstrap';
 
 
-export default function Boards () {
+export default function MyPosts (props) {
   const [state, setState] = useState({
     search: '',
     jamsChecked: true,
@@ -13,10 +14,26 @@ export default function Boards () {
 
   const [boards, setBoards] = useState([])
   useEffect(() => {
-    api.getBoards().then(boards => {
+    api.getMyBoards().then(boards => {
       setBoards(boards)
     })
   }, [])
+
+
+function handleDelete(i, e) {
+  let adId = e.target.name
+    api
+      .deletePost(adId)
+      .then(ad => {
+        console.log('AD', ad)
+        let values = [...boards]
+        values.splice(i, 1)
+         setBoards(values)
+        props.history.push('/myBoards')
+
+      })
+      .catch(err => console.log(err))
+  }
 
 function handleChange(e) {
     setState({...state,
@@ -44,8 +61,8 @@ function filterType(board){
 
   return  (
     <div>
-    <button><Link to='/postjam'>Post your own </Link></button>
-    <h1>Boards</h1>
+    <Button><Link to='/postjam'>Create new</Link></Button>
+    <h1>My Posts</h1>
  <input
       type="text"
       className="search-bar"
@@ -137,6 +154,10 @@ function filterType(board){
 </Link>
 <h3>{board.title}</h3>
 <p>{board.description}</p>
+ <Button name={board._id} onClick={e => handleDelete(i, e)}>
+         Delete
+       </Button>
+
 </div>
   
 )

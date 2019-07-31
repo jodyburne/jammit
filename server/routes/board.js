@@ -9,7 +9,7 @@ const uploadCloud = require("../configs/cloudinary.js");
 const Post = require('../models/Post')
 const async = require('async')
 
-
+//post a comment on jam/wanted
 router.post('/boards/:advertId', isLoggedIn, (req, res, next) => {
   let adId = req.params.advertId;
   let comment = req.body.content;
@@ -42,15 +42,16 @@ router.post('/showOff', isLoggedIn, uploadCloud.single('file'), (req,res,next) =
     } else {
       userImg = req.user.profilePic;
     }
- const text = req.body.text
-  Post.create({
-    _user: req.user._id,
+  Advert.create({
+    _user: req.user,
   imageURL: userImg,
-  text: text,
+  title: req.body.title,
+  description: req.body.description,
+  advertType: 'showOff'
   })
-   .then(post => {
-    console.log("post", post)
-    res.json(post);
+   .then(ad => {
+    console.log("post", ad)
+    res.json(ad);
   })
   .catch(err =>  {
     console.log('error', err)
@@ -59,44 +60,6 @@ router.post('/showOff', isLoggedIn, uploadCloud.single('file'), (req,res,next) =
 
 })
 
-//delete a showoff
-router.delete('/myBoards/:postId', isLoggedIn, (req, res, next) => {
-Post.findById(req.params.postId)
-Post.deleteOne({_id: req.params.postId})
- .then( post => {
-res.json({
-  success: true,
-  message: 'post deleted',
-})
-   })
-   .catch(err => next(err))
-})
-
-
-//get all showoffs
-router.get('/showOffs', (req, res, next) => {
-  Post.find()
-  .then(posts => {
-    res.json(posts)
-  })
-})
-
-//get all user's showoffs
-router.get('/myBoards/showOffs', isLoggedIn, (req, res, next) => {
-Post.find({_user: req.user._id})
-.then(posts => {
-  res.json(posts)
-})
-})
-
-//get show off detail
-router.get('/showOffs/:showOffId', (req, res, next) => {
-  Post.findById(req.params.showOffId)
-    .then(ad => {
-      res.json(ad)
-    })
-    .catch(next)
-})
 
 //post a jam/wanted
 router.post('/postjam', isLoggedIn,  uploadCloud.single("file"), (req, res, next) => {
@@ -108,15 +71,13 @@ router.post('/postjam', isLoggedIn,  uploadCloud.single("file"), (req, res, next
       console.log("req undefined");
       userImg = req.user.profilePic;
     }
-  const advertType = req.body.advertType
-  console.log( 'REQBODYODYODY', req.body)
   
   Advert.create({
     _user: req.user,
   title: req.body.title,
   description: req.body.description,
   imageURL: userImg,
-  advertType: req.body.advertType,
+  advertType: 'jam',
   location: req.body.location,
   instruments: req.body.instruments,
    date: req.body.date,
@@ -141,14 +102,13 @@ router.post('/postwanted', isLoggedIn,  uploadCloud.single("file"), (req, res, n
       console.log("req undefined");
       userImg = req.user.profilePic;
     }
-  const advertType = req.body.advertType
   console.log( 'REQBODYODYODY', req.body)
      Advert.create({
     _user: req.user,
   title: req.body.title,
   description: req.body.description,
   imageURL: userImg,
-  advertType: advertType,
+  advertType: 'wanted',
  
   })
    .then(ad => {
@@ -161,20 +121,8 @@ router.post('/postwanted', isLoggedIn,  uploadCloud.single("file"), (req, res, n
   })
   })
 
-//route to get both ads and posts not working, returning only ads
 
-// router.get('/boards', isLoggedIn, (req, res, next) => {
-//   Promise.all([
-//     Post.find(),
-//     Advert.find()
-//   ])
-//   .then(([post, ad]) => {
-//     res.json(post, ad)
-//   })
-//   .catch(err => next(err))
-// })
-
-//gets all jams and wanted
+// gets all ads
 router.get('/boards', isLoggedIn, (req, res, next) => {
   Advert.find()
   .then(ads => {
@@ -199,7 +147,7 @@ router.get('/boards/:advertId', (req, res, next) => {
 })
 
 
-//gets user's own jams/wanted
+//gets user's own ads
 router.get('/myBoards', isLoggedIn, (req, res, next) => {
 
 Advert.find({_user: req.user._id})

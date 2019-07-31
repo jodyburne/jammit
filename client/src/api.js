@@ -86,6 +86,20 @@ export default {
       .catch(errHandler)
   },
 
+  getMyBoards() {
+    return service
+      .get('/myBoards')
+      .then(res => res.data)
+      .catch(errHandler)
+  },
+
+deletePost(adId) {
+    return service
+      .delete('/myBoards/' + adId)
+      .then(res => res.data)
+      .catch(errHandler)
+  },
+
   getAdDetail(adId) {
     console.log('HI THERE', adId)
     return service
@@ -94,6 +108,12 @@ export default {
       .catch(errHandler)
   },
 
+addComment(uploadData, adId){
+  return service
+    .post('/boards/' + adId, uploadData)
+    .then(res => res.data)
+    .catch(errHandler)
+},
   updateAd(profileData) {
     return service
       .put('/user', profileData)
@@ -135,6 +155,13 @@ export default {
       .then(res => res.data)
       .catch(errHandler)
   },
+
+addPost(uploadData) {
+  return service
+    .post('/showOff', uploadData)
+    .then(res => res.data)
+    .catch(errHandler)
+},
 
   addCountry(body) {
     return service
