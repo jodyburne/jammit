@@ -12,7 +12,7 @@ import Boards from './pages/Boards'
 import AdDetail from './pages/AdDetail'
 import CreateAd from './pages/CreateAd'
 import Wanted from './pages/Wanted'
-
+import ShowOff from './pages/ShowOff'
 
 export default class App extends Component {
   constructor(props) {
@@ -54,7 +54,7 @@ export default class App extends Component {
           <Route path="/boards/:advertId" component={AdDetail} /> 
           <Route path="/postjam" component={CreateAd} />
           <Route path="/postwanted" component={Wanted} />
-
+          <Route path="/showOff" component={ShowOff} />
           <Route path="/user" component={Profile} />
           <Route path="/edit-user" component={EditProfile} />
           <Route path="/request" component={Requests} />

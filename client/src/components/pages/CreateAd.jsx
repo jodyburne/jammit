@@ -94,7 +94,7 @@ e.target.value = ''
     <input type="radio" name="options" id="option2" autocomplete="off"/> <Link to='/postwanted'>Wanted</Link>
   </label>
   <label class="btn btn-secondary">
-    <input type="radio" name="options" id="option3" autocomplete="off"/> Show Off
+    <input type="radio" name="options" id="option3" autocomplete="off"/> <Link to='/showOff'> Show Off </Link>
   </label>
 </div>
 

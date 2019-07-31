@@ -95,6 +95,12 @@ getAdDetail(adId){
     .catch(errHandler)
 },
 
+addComment(uploadData, adId){
+  return service
+    .post('/boards/' + adId, uploadData)
+    .then(res => res.data)
+    .catch(errHandler)
+},
   updateAd(profileData) {
     return service
       .put('/user', profileData)
@@ -136,6 +142,13 @@ getAdDetail(adId){
 addAd(uploadData) {
   return service
     .post('/postjam', uploadData)
+    .then(res => res.data)
+    .catch(errHandler)
+},
+
+addPost(uploadData) {
+  return service
+    .post('/showOff', uploadData)
     .then(res => res.data)
     .catch(errHandler)
 },

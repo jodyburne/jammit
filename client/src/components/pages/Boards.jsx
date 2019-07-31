@@ -8,6 +8,7 @@ export default function Boards () {
     search: '',
     jamsChecked: true,
     wantedChecked: true,
+    showOffChecked: true
   })
 
   const [boards, setBoards] = useState([])
@@ -33,7 +34,8 @@ function handleChange(e) {
 function filterType(board){
   return (
     (state.jamsChecked && board.advertType === 'jam') ||
-     (state.wantedChecked && board.advertType === 'wanted')
+     (state.wantedChecked && board.advertType === 'wanted') ||
+     (state.showOffChecked && board.advertType ==='showOff')
 
   )
 }
@@ -95,6 +97,26 @@ function filterType(board){
           onChange={handleChange}
         
         /> wanted
+  </label>
+   }
+
+   {state.showOffChecked ? <label name="showOffChecked" className="active btn btn-secondary">
+  <input
+          type="checkbox"
+          name="showOffChecked"
+          checked={state.showOffChecked}
+          onChange={handleChange}
+        
+        /> showOff
+  </label>
+   : <label name="showOffChecked" className=" btn btn-secondary">
+   <input
+          type="checkbox"
+          name="showOffChecked"
+          checked={state.showOffChecked}
+          onChange={handleChange}
+        
+        /> Show Off
   </label>
    }
 </div>

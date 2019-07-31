@@ -4,37 +4,34 @@ import api from '../../api'
 import { Link } from 'react-router-dom'
 
 
-export default function Wanted(props) {
+export default function ShowOff(props) {
 
-
-
-const [wanted, setWanted] = useState({
+const [showOff, setShowOff] = useState({
   title: '',
   description: '',
   imageURL: null,
-  advertType: 'wanted',
 })
 
   function handleInputChange(e) {
-    setWanted({
-      ...wanted,
+    setShowOff({
+      ...showOff,
       [e.target.name]: e.target.value
     })
   
   }
 
-  function handleClickWanted(e) {
+  function handleClickShowOff(e) {
  
     const uploadData = {
-      title: wanted.title,
-      description: wanted.description,
-     imageURL: wanted.imageURL,
-     advertType: wanted.advertType
+      title: showOff.title,
+      description: showOff.description,
+     imageURL: showOff.imageURL,
+  
     }
 
     api.
      addAd(uploadData)
-      .then(ad => {
+      .then(showOff => {
       props.history.push('/boards')
       })
       .catch(err => console.log(err))
@@ -44,35 +41,35 @@ const [wanted, setWanted] = useState({
   
     return (
       <div>
-      <h1> wanted</h1>
+      <h1> showOff</h1>
       
 <div class="btn-group btn-group-toggle" data-toggle="buttons">
   <label class="btn btn-secondary ">
     <input type="radio" name="options" id="option1" autocomplete="off" /> <Link to='/postjam'>Jam</Link>
   </label>
-  <label class="btn btn-secondary active">
-    <input type="radio" name="options" id="option2" autocomplete="off" checked/> <Link to='/postwanted'>Wanted</Link>
+  <label class="btn btn-secondary ">
+    <input type="radio" name="options" id="option2" autocomplete="off" checked/> <Link to='/postwanted'> Wanted</Link>
   </label>
-  <label class="btn btn-secondary">
-    <input type="radio" name="options" id="option3" autocomplete="off"/> <Link to='/showOff'> Show Off </Link>
+  <label class="btn btn-secondary active">
+    <input type="radio" name="options" id="option3" autocomplete="off"/> <Link to='/showOff'>Show Off </Link>
   </label>
 </div>
 
       <Form>
-        <FormGroup>
-          <Label for="title">Who or what do you need?</Label> <br/>
-          <Input type="title" onChange={handleInputChange} name="title" id="title" placeholder="Charismatic frontman needed" />
+      <FormGroup>
+          <Label for="title">What do you want to show off?</Label> <br/>
+          <Input type="title" onChange={handleInputChange} name="title" id="title" placeholder="late night jam" />
         </FormGroup>
         <FormGroup>
           <Label for="description">Tell us more</Label>  <br/>
-          <Input type="textarea"  onChange={handleInputChange} name="description" id="description" placeholder="must be goodlooking with some singing experience" />
+          <Input type="textarea"  onChange={handleInputChange} name="description" id="description" placeholder="any news? your latest song? share it here" />
         </FormGroup>
         <FormGroup>
           <Label for="photo">Upload a photo</Label>  <br/>
           <Input type="file" onChange={handleInputChange}  name="imageURL" id="photo" />
         </FormGroup>
      
-        <Button onClick={e => handleClickWanted(e)}> Create </Button>
+        <Button onClick={e => handleClickShowOff(e)}> Create </Button>
       </Form>
       
       </div>

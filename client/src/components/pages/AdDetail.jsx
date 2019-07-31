@@ -5,39 +5,42 @@ import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 export default function AdDetail(props){
   const adId = props.match.params.advertId
 
-const [comments, setComments] = useState(null)
+const [comments, setComments] = useState([])
+const [detail, setDetail] = useState(null)
+const [currentComment, setCurrentComment] = useState('')
 
-   const [detail, setDetail] = useState(null)
+
   useEffect(() => {
     api.getAdDetail(adId).then(data => {
       setDetail(data[0])
       if (data[1]){
       setComments(data[1])}
-    console.log(data)
-      // setComments(data.comments)
-      // console.log('comments', comments)
+
     })
   }, [])
 
-// function handleSubmit(e){
-//   console.log('WERKING NOW')
-//   let values
-//   values = [...comments]
-//   values.push(e.target.value)
-// setComments(values)
-// e.target.value = ''
-// console.log('comms', comments)
+function handleInputChange(e) {
+    setCurrentComment(e.target.value)
+  }
 
-// const uploadData
+function handleSubmit(e){
+  let values
+  values = [...comments]
+  values.push(currentComment)
+setComments(values)
 
-// api.
-//      addAd(uploadData)
-//       .then(ad => {
-//       props.history.push('/boards')
-//       })
-//       .catch(err => console.log(err))
 
-// }
+const uploadData = {content: currentComment}
+api.
+     addComment(uploadData, adId)
+      .then(createdComment => {
+        setComments([...comments, createdComment])
+        setCurrentComment('')
+      })
+      .catch(err => console.log(err))
+
+
+}
 
   return (
     <div>
@@ -51,23 +54,24 @@ const [comments, setComments] = useState(null)
 
     <div>
     <h2> Comments </h2>
+    
     {comments && (
     comments.map(
       com => 
       <div> 
-      <h3>{com.postedBy ? com.postedBy : com.userEmail}</h3>
+      <h4>{com.postedBy ? com.postedBy : com.userEmail}</h4>
       <img src={com._creatorImg}/>
-      <p> {com.content} </p>
+      <h5> {com.content} </h5>
       </div> 
     )
     )}
 
     <Form>
      <FormGroup>
-          <Label for="exampleText">Add a comment</Label>
-          <Input type="textarea" name="text" id="exampleText" placeholder="You have questions?  Post a comment here." />
+          <Label for="content">Add a comment</Label>
+          <Input type="textarea" onChange={handleInputChange} value={currentComment} name="content" id="content" placeholder="You have questions?  Post a comment here." />
         </FormGroup>
-      <Button >Submit</Button>
+      <Button onClick={e => handleSubmit(e)} >Submit</Button>
     </Form>
     </div>
     </div>
