@@ -16,6 +16,7 @@ const [jam, setJam] = useState({
   advertType: 'jam',
   date: new Date(),
   time: '19:00',
+  specific: ''
 
 })
 
@@ -27,8 +28,12 @@ const [currentInstru, setCurrentInstru] = useState('')
       ...jam,
       [e.target.name]: e.target.value
     })
-  setCurrentInstru(e.target.value)
   }
+
+function handleInstruChange(e){
+    setCurrentInstru(e.target.value)
+
+}
 
 function handleAddField(e) {
 
@@ -55,7 +60,7 @@ function handleEnter(e) {
   values = [...instruments]
   values.push(e.target.value)
 setInstruments(values)
-e.target.value = ''
+setCurrentInstru(' ')
   }
 }
 
@@ -69,7 +74,8 @@ e.target.value = ''
      advertType: jam.advertType,
     date: jam.date,
     time: jam.time,
-    instruments: instruments
+    instruments: instruments,
+    specific: jam.specific
     }
 
     api.
@@ -113,7 +119,7 @@ e.target.value = ''
           <Input type="title" onChange={handleInputChange} name="title" id="title" placeholder="late night jam" />
         </FormGroup>
         <FormGroup>
-          <Label for="description">what how why?</Label>  <br/>
+          <Label for="description">What how why?</Label>  <br/>
           <Input type="textarea"  onChange={handleInputChange} name="description" id="description" placeholder="bring your instruments to my place" />
         </FormGroup>
         <FormGroup>
@@ -152,7 +158,7 @@ e.target.value = ''
                 name="instruments"
                 id="instruments"
                 value={currentInstru}
-                onChange={handleInputChange}
+                onChange={handleInstruChange}
               />
           <Button  className='filter-button' type="button" id="instruments"onClick={e => handleAddField(e)}>Add</Button>
               
@@ -160,8 +166,8 @@ e.target.value = ''
         </FormGroup>
 
         <FormGroup>
-          <Label for="hidden">Specific details</Label> <p className='text-muted'>These details will only be shared with other users after your approval. </p> 
-          <Input type="textarea"  onChange={handleInputChange} name="description" id="description" placeholder="bring your instruments to my place" />
+          <Label for="specific">Specific time and location details</Label> <p className='text-muted'>These details will only be shared with other users after your approval. </p> 
+          <Input type="textarea"   onChange={handleInputChange} name="specific" id="specific" placeholder="Come to my garage in Rua da Rosa 5. Buzz for Flores." />
         </FormGroup>
 
       </Form>

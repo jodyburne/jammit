@@ -81,7 +81,8 @@ router.post('/postjam', isLoggedIn,  uploadCloud.single("file"), (req, res, next
   location: req.body.location,
   instruments: req.body.instruments,
    date: req.body.date,
-  time: req.body.time
+  time: req.body.time,
+  specific: req.body.specific
   })
      .then(ad => {
     console.log("ad", ad)
