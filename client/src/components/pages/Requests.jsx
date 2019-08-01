@@ -28,8 +28,6 @@ export default function Requests() {
       })
     }
 
-    console.log('id: ', requestId, 'value:', approval)
-
     requestState({
       requestId: requestId,
       approval: approval,
@@ -56,6 +54,8 @@ export default function Requests() {
       setRequests(requests)
     })
   }, [])
+
+  console.log(requests)
 
   return (
     <div className="requests">

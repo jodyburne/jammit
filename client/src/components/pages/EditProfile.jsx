@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import api from '../../api'
 import { Form, Button, FormGroup, Label, Input, FormText } from 'reactstrap'
 
@@ -6,30 +6,34 @@ export default function Profile() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')))
   const [file, setFile] = useState()
   const [message, setMessage] = useState('')
-  const [links, setLinks] = useState(user.links)
-  const [gear, setGear] = useState(user.gear)
-  const [skills, setSkills] = useState(user.skills)
+
+  useEffect(() => {
+    api.getProfile().then(user => {
+      setUser(user)
+    })
+  }, [])
 
   function handleAddField(e) {
     let values
     switch (e.target.id) {
       case 'links':
-        values = [...links]
+        values = [...user.links]
         values.push('')
-        setLinks(values)
+        setUser({ ...user, links: values })
         break
 
       case 'gear':
-        values = [...gear]
+        values = [...user.gear]
         values.push('')
-        setGear(values)
+        setUser({ ...user, gear: values })
         break
 
       case 'skills':
-        values = [...skills]
+        values = [...user.skills]
         values.push('')
-        setSkills(values)
+        setUser({ ...user, skills: values })
         break
+      default:
     }
   }
 
@@ -37,30 +41,73 @@ export default function Profile() {
     let values = []
     switch (e.target.id) {
       case 'links':
-        values = [...links]
+        values = [...user.links]
         values.splice(i, 1)
-        setLinks(values)
+        setUser({ ...user, links: values })
         break
 
       case 'gear':
-        values = [...gear]
+        values = [...user.gear]
         values.splice(i, 1)
-        setGear(values)
+        setUser({ ...user, gear: values })
         break
 
       case 'skills':
-        values = [...skills]
+        values = [...user.skills]
         values.splice(i, 1)
-        setSkills(values)
+        setUser({ ...user, skills: values })
         break
+      default:
     }
   }
 
   function handleInputChange(e) {
     let inputField = e.target
+    let value
+    if (inputField.type === 'checkbox') {
+      value = inputField.checked
+    } else {
+      value = inputField.value
+    }
+
     setUser({
       ...user,
-      [inputField.name]: inputField.value,
+      [inputField.name]: value,
+    })
+  }
+
+  function handleDynamicInput(e, indexToChange) {
+    let inputField = e.target
+    setUser({
+      ...user,
+      links: user.links.map((link, i) => {
+        if (i !== indexToChange) return link
+        else return inputField.value
+      }),
+    })
+  }
+
+  function handleSkills(e, indexToChange) {
+    let inputField = e.target
+    console.log('DEBUG USER SKILLS', user.skills)
+    setUser({
+      ...user,
+      skills: user.skills.map((skill, i) => {
+        if (i !== indexToChange) return skill
+        else return inputField.value
+      }),
+    })
+  }
+
+  function handleGear(e, indexToChange) {
+    let inputField = e.target
+    console.log('DEBUG USER GEAR', user.gear)
+    setUser({
+      ...user,
+      gear: user.gear.map((gear, i) => {
+        if (i !== indexToChange) return gear
+        else return inputField.value
+      }),
     })
   }
 
@@ -71,22 +118,25 @@ export default function Profile() {
   function handleSubmit(e) {
     e.preventDefault()
 
-    const profileData = new FormData()
-    profileData.append('file', file)
-    profileData.append('name', user.name)
-    profileData.append('bio', user.bio)
-    /*  profileData.append('links', user.links)
-    profileData.append('gear', user.gear)
-    profileData.append('skills', user.skills)
-    profileData.append('jamSpot', user.jamSpot) */
-    console.log('TCL: handleSubmit -> profileData', profileData.get('name'))
-    console.log('TCL: handleSubmit -> profileData', profileData.get('skills'))
+    const profilePic = new FormData()
+    profilePic.append('file', file)
 
     api
-      .updateProfile(profileData)
+      .updateProfile(user)
       .then(result => {
         setUser(result)
         setMessage(`Profile Updated`)
+        setTimeout(() => {
+          setMessage(null)
+        }, 2000)
+      })
+      .catch(err => setUser({ message: err.toString() }))
+
+    api
+      .updatePicture(profilePic)
+      .then(result => {
+        setUser(result)
+        setMessage('Profile Updated')
         setTimeout(() => {
           setMessage(null)
         }, 2000)
@@ -123,14 +173,20 @@ export default function Profile() {
           <Label for="bio">Bio</Label>
           <Input
             type="textarea"
-            name="text"
+            name="bio"
             id="bio"
             value={user.bio}
             onChange={handleInputChange}
           />
         </FormGroup>
         <Label check>
-          <Input type="checkbox" /> I have a jam spot
+          <Input
+            type="checkbox"
+            onChange={handleInputChange}
+            name="jamSpot"
+            checked={user.jamSpot}
+          />
+          I have a jam spot
         </Label>
         <FormText color="muted">
           Check if you have your own jam place and you're open to invite friends
@@ -138,16 +194,17 @@ export default function Profile() {
         </FormText>
 
         <FormGroup>
-          <Label for="links">Mora about me:</Label>
+          <Label for="links">More about me:</Label>
           <Button type="button" id="links" onClick={e => handleAddField(e)} />+
-          {links.map((link, i) => (
-            <FormGroup key={`${link}-${i}`}>
+          {user.links.map((link, i) => (
+            <FormGroup key={i}>
               <Input
                 type="text"
                 name="links"
                 id="links"
                 placeholder="my soundcloud url..."
-                onChange={handleInputChange}
+                value={link}
+                onChange={e => handleDynamicInput(e, i)}
               />
               <Button
                 type="button"
@@ -162,14 +219,14 @@ export default function Profile() {
         <FormGroup>
           <Label for="gear">Personal Gear:</Label>
           <Button type="button" id="gear" onClick={e => handleAddField(e)} />+
-          {gear.map((item, i) => (
-            <FormGroup key={`${item}-${i}`}>
+          {user.gear.map((item, i) => (
+            <FormGroup key={i}>
               <Input
                 type="text"
                 name="gear"
                 id="gear"
                 value={item}
-                onChange={handleInputChange}
+                onChange={e => handleGear(e, i)}
               />
               <Button
                 type="button"
@@ -184,13 +241,14 @@ export default function Profile() {
         <FormGroup>
           <Label for="skills">Musical skills:</Label>
           <Button type="button" id="skills" onClick={e => handleAddField(e)} />+
-          {skills.map((skill, i) => (
-            <FormGroup key={`${skill}-${i}`}>
+          {user.skills.map((skill, i) => (
+            <FormGroup key={i}>
               <Input
                 type="text"
                 name="skills"
                 id="skills"
-                onChange={handleInputChange}
+                value={skill}
+                onChange={e => handleSkills(e, i)}
               />
               <Button
                 type="button"
@@ -206,7 +264,7 @@ export default function Profile() {
       </Form>
       {message && <div className="info">{message}</div>}
 
-      <pre>{JSON.stringify(user, null, 2)}</pre>
+      <pre>user = {JSON.stringify(user, null, 2)}</pre>
     </div>
   )
 }
