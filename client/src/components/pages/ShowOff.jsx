@@ -43,15 +43,15 @@ const [showOff, setShowOff] = useState({
       <div>
       <h1> showOff</h1>
       
-<div class="btn-group btn-group-toggle" data-toggle="buttons">
-  <label class="btn btn-secondary ">
-    <input type="radio" name="options" id="option1" autocomplete="off" /> <Link to='/postjam'>Jam</Link>
+<div className="btn-group btn-group-toggle" data-toggle="buttons">
+  <label className="btn btn-secondary ">
+    <input type="radio" name="options" id="option1" autoComplete="off" /> <Link to='/postjam'>Jam</Link>
   </label>
-  <label class="btn btn-secondary ">
-    <input type="radio" name="options" id="option2" autocomplete="off" checked/> <Link to='/postwanted'> Wanted</Link>
+  <label className="btn btn-secondary ">
+    <input type="radio" name="options" id="option2" autoComplete="off" defaultChecked/> <Link to='/postwanted'> Wanted</Link>
   </label>
-  <label class="btn btn-secondary active">
-    <input type="radio" name="options" id="option3" autocomplete="off"/> <Link to='/showOff'>Show Off </Link>
+  <label className="btn btn-secondary active">
+    <input type="radio" name="options" id="option3" autoComplete="off"/> <Link to='/showOff'>Show Off </Link>
   </label>
 </div>
 

@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react'
 import api from '../../api'
 import { Link } from 'react-router-dom'
-import { Button } from 'reactstrap';
-
+import {  Button, Row, Col  } from 'reactstrap';
+import { FaDrum,  FaMicrophoneAlt, FaSearchengin} from 'react-icons/fa'
 
 export default function MyPosts (props) {
   const [state, setState] = useState({
@@ -35,12 +35,7 @@ function handleDelete(i, e) {
       .catch(err => console.log(err))
   }
 
-function handleChange(e) {
-    setState({...state,
-    [e.target.name]: 
-    e.target.type === "checkbox" ? e.target.checked : e.target.value})
-   
-  }
+
 
  function filterBySearch(board) {
     return (
@@ -56,112 +51,63 @@ function filterType(board){
 
   )
 }
+const iconColor = {
+  color: '#14a7a8'
+}
+
+// , FaSearch, FaMicrophoneAlt, FaSearchengin
 
 
 
   return  (
-    <div>
-    <Button><Link to='/postjam'>Create new</Link></Button>
-    <h1>My Posts</h1>
- <input
-      type="text"
-      className="search-bar"
-      placeholder="new tune"
-      name="search"
-      value={state.search}
-      onChange={handleChange}
-   />
-   <br/>
-
- {/*toggle to tag remove active class not working, instead using ternary   */}
-
-<div class="btn-group btn-group-toggle" data-toggle="buttons">
-   
-  {state.jamsChecked ? <label name="jamsChecked" className="active btn btn-secondary">
-  <input
-          type="checkbox"
-          name="jamsChecked"
-          checked={state.jamsChecked}
-          onChange={handleChange}
-        
-        /> Jams
-  </label>
-   : <label name="jamsChecked" className=" btn btn-secondary">
-   <input
-          type="checkbox"
-          name="jamsChecked"
-          checked={state.jamsChecked}
-          onChange={handleChange}
-        
-        /> Jams
-  </label>
-   } 
-
-  {state.wantedChecked ? <label name="wantedChecked" className="active btn btn-secondary">
-  <input
-          type="checkbox"
-          name="wantedChecked"
-          checked={state.wantedChecked}
-          onChange={handleChange}
-        
-        /> wanted
-  </label>
-   : <label name="wantedChecked" className=" btn btn-secondary">
-   <input
-          type="checkbox"
-          name="wantedChecked"
-          checked={state.wantedChecked}
-          onChange={handleChange}
-        
-        /> wanted
-  </label>
-   }
-
-   {state.showOffChecked ? <label name="showOffChecked" className="active btn btn-secondary">
-  <input
-          type="checkbox"
-          name="showOffChecked"
-          checked={state.showOffChecked}
-          onChange={handleChange}
-        
-        /> showOff
-  </label>
-   : <label name="showOffChecked" className=" btn btn-secondary">
-   <input
-          type="checkbox"
-          name="showOffChecked"
-          checked={state.showOffChecked}
-          onChange={handleChange}
-        
-        /> Show Off
-  </label>
-   }
-</div>
+    <div className='boards'>
+    <br/>
+    <h4 className='text-left'> My Posts</h4>
+    <br/>
+    
 
 
-
+<Row>
 {boards
 .filter(board => 
   filterBySearch(board) &&
   filterType(board)
 )
 .map((board, i) => (
- 
-  <div key={i}>
+  <Col key={i} md='4'>
+  <div className='noticeCard text-left' >
    <Link
   to={"/boards/" + board._id}>
-<img src={board.imageURL} alt="" height='100'/>
+  
+  <br/>
+<img src={board.imageURL} alt=""/>
 </Link>
-<h3>{board.title}</h3>
+<h3>   { 
+board.advertType === 'jam' &&
+  <FaDrum style={iconColor}/>
+  }
+  {board.advertType === 'wanted' &&
+  <FaSearchengin style={iconColor}/>
+  } 
+   {board.advertType === 'showOff' &&
+  <FaMicrophoneAlt style={iconColor}/>
+  } 
+  {'   ' + board.title}
+</h3>
 <p>{board.description}</p>
- <Button name={board._id} onClick={e => handleDelete(i, e)}>
+ <Button className='filter-button' name={board._id} onClick={e => handleDelete(i, e)}>
          Delete
        </Button>
 
-</div>
-  
-)
-)}
+ </div>
+ </Col> 
+ 
+))}
+</Row>
+
+ <Link to='/postjam'> <button  className="circular-fixed-bottom-right-button"></button></Link>
+
+
     </div>
   )
 }

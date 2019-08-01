@@ -30,7 +30,7 @@ body {
   width: 64px;
   height: 64px;
   left: 53px;
-  background: url(public/images/002-post-it-1.png);
+  
 }
 
 .info {
@@ -98,21 +98,10 @@ body {
     font-size: 1em;
   }
 //not working
-  h1 {
-    color: black !important;
-    text-decoration: none !important;
-  }
+  
 }
-<<<<<<< HEAD
-//not working
-.board-search{
-  border-radius: 10px;
 
-}
-.searchButton {
-  width: 100%;
-  //not working
-=======
+
 
 .board-search {
   border-radius: 10px;
@@ -120,7 +109,6 @@ body {
 .searchButton {
   width: 100%;
   border-radius: 10px;
->>>>>>> 774434359b9fe4e40857edbcfdddf43cfa7b7686
 }
 
  .searchButtonEach{
@@ -152,13 +140,12 @@ div.card > .card-img-top {
 .homeCard {
   width: 80%;
   height: 90%;
-  border: solid 2px black;
+  border: solid 1px black;
   border-radius: 10px;
   padding: 20px;
   margin: 20px auto;
   display: flex;
   flex-direction: column;
-
   justify-content: space-between;
 }
 
@@ -190,8 +177,7 @@ div.card > .card-img-top {
   justify-content: space-around;
 }
 
-.notices {
-}
+
 
 .notices {
   width: 98%;
@@ -276,11 +262,68 @@ div.card > .card-img-top {
 }
 
 .filter-button {
-<<<<<<< HEAD
   background-color: $primary !important;
   border: none !important;
+  width: 150px;
+  margin: 0 auto;
 }
-=======
-  background-color: $primary;
+ 
+
+
+ .adDetailCard {
+width: 309px;
+height: 404px;
+left: 28px;
+top: 96px;
+margin: auto;
+
+background: linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 100%), #86BFC2;
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 15px;
+display: flex;
+flex-direction: column;
+justify-content: space-around;
+
+ }
+
+ .adDetailCard img {
+   width: 80%;
+   height: auto;
+   border-radius: 15px;
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+ }
+
+.adDetailCard p {
+  padding: 2px 30px;
+  color: white;
+  text-align: left
 }
->>>>>>> 774434359b9fe4e40857edbcfdddf43cfa7b7686
+
+.postComment{
+  width: 80vw;
+  margin: auto
+}
+
+.comment{
+  max-width: 90vw;
+  height: auto;
+  margin: 0.4rem auto;
+  border: solid black 1px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.comment img {
+  border-radius: 50%;
+  margin: 0.2rem
+}
+
+.search-bar {
+  background-image: url("/images/006-search.png");
+  background-repeat: no-repeat;
+  background-position: 98%;
+  background-size: auto 50%;
+}
