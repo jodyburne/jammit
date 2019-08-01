@@ -68,6 +68,11 @@ body {
   p {
     font-size: 1em;
   }
+  //not working
+  h1 {
+    color: black !important;
+    text-decoration: none !important;
+  }
 }
 
 .board-search {
@@ -78,6 +83,9 @@ body {
   border-radius: 10px;
 }
 
+.searchButtonEach {
+  border-radius: 20px;
+}
 .boards {
   width: 85%;
   margin: auto;
