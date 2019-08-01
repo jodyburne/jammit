@@ -16,12 +16,6 @@ export default function Map({ options, onMount, className, request }) {
   })
 
   const [currentLocation, setCurrentLocation] = useState(getCurrentLocation())
-  const [placeContent, setPlaceContent] = useState({
-    title: ' ',
-    position: '',
-    vicinity: '',
-    picture: '',
-  })
   const [showCard, setShowCard] = useState({ display: 'none' })
   const [placesList, setPlacesList] = useState([])
   const [singlePlace, setSinglePlace] = useState({
@@ -53,8 +47,6 @@ export default function Map({ options, onMount, className, request }) {
       })
 
       bounds.extend(places[i].geometry.location)
-      placesList.push(places[i])
-      setPlacesList(placesList)
 
       window.google.maps.event.addListener(marker, 'click', function() {
         setSinglePlace(places[i])
@@ -75,6 +67,10 @@ export default function Map({ options, onMount, className, request }) {
         function(results, status, pagination) {
           if (status !== 'OK') return
           createMarkers(results, map)
+          for (let i = 0; i < results.length; i++) {
+            placesList.push(results[i])
+            setPlacesList(placesList)
+          }
         }
       )
     }
@@ -97,7 +93,6 @@ export default function Map({ options, onMount, className, request }) {
       let places = searchBox.getPlaces()
       let markers = []
       setPlacesList([])
-      console.log("i'm being empty")
 
       if (places.length === 0) {
         getCurrentLocation()
@@ -200,16 +195,10 @@ export default function Map({ options, onMount, className, request }) {
       <Input id="pac-input" />
       <div {...props} style={mapStyle} />
       <div style={showCard}>
-        <PlaceCard {...singlePlace} />
+        <PlaceCard {...singlePlace} className="SingleCard" />
       </div>
       <Button onClick={handleViewMode} /> List View / Map View
       <div className="ListContainer" style={showList}>
-        {console.log(
-          'this is the list status:',
-          showList,
-          'this is the list of places:',
-          placesList
-        )}
         {placesList.map((place, i) => (
           <PlaceCard {...place} key={i} />
         ))}
