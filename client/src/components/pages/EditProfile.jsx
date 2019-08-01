@@ -95,8 +95,8 @@ export default function Profile() {
   }
 
   return (
-    <div className="Edit Profile">
-      <h2>User</h2>
+    <div className="edit-profile">
+      <h2>Edit Profile</h2>
       <Form onSubmit={handleSubmit}>
         <FormGroup>
           <Label for="exampleName">Name</Label>

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import api from '../../api'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
+import { FaCheck, FaTimes } from 'react-icons/fa'
+import { Link } from 'react-router-dom'
 
 export default function Requests() {
   const [requests, setRequests] = useState([])
@@ -13,10 +15,10 @@ export default function Requests() {
     message: '',
   })
 
-  function handleShow(e) {
+  function handleShow(approval, requestId) {
     setShow(true)
 
-    if (e.target.value === 'Approved') {
+    if (approval === 'Approved') {
       modalState({
         message: 'Are you sure you want to approve this request?',
       })
@@ -26,18 +28,26 @@ export default function Requests() {
       })
     }
 
+    console.log('id: ', requestId, 'value:', approval)
+
     requestState({
-      requestId: e.target.id,
-      approval: e.target.value,
+      requestId: requestId,
+      approval: approval,
     })
   }
 
   function handleClose(e) {
     setShow(false)
     if (e.target.value !== 'Cancel') {
-      api.handleRequests(request.requestId, {
-        approval: request.approval,
-      })
+      api
+        .handleRequests(request.requestId, {
+          approval: request.approval,
+        })
+        .then(() => {
+          api.getIncomingRequests().then(requests => {
+            setRequests(requests)
+          })
+        })
     }
   }
 
@@ -45,24 +55,41 @@ export default function Requests() {
     api.getIncomingRequests().then(requests => {
       setRequests(requests)
     })
-  }, [requests])
+  }, [])
 
   return (
-    <div className="Requests">
-      <h2>Requests sent to me: </h2>
-      {requests
-        //.filter(request => request.approval === 'Pending')
-        .map(request => (
-          <div key={request._id}>
-            <p>{request._post}</p>
-            <p>{request.approval}</p>
-            <p>{request._postOwner.name}</p>
-            <p>{request._requester}</p>
-            <Button id={request._id} value="Approved" onClick={handleShow} />
-            Accept
-            <Button id={request._id} value="Denied" onClick={handleShow} /> Deny
-          </div>
-        ))}
+    <div className="requests">
+      <h2>Requests: </h2>
+      <div>
+        {requests
+          //.filter(request => request.approval === 'Pending')
+          .map(request => (
+            <div className="smaller-card" key={request._id}>
+              <Link to="/user">
+                <img
+                  src={
+                    request._requester.profilePic ||
+                    'https://pbs.twimg.com/profile_images/1457290066/amy1000_400x400.jpg'
+                  }
+                />
+              </Link>
+
+              <div className="smaller-card-text">
+                <p>{request._requester.name}</p>
+                <p>{request._post.title}</p>
+                <p>{request.approval}</p>
+              </div>
+              <div className="smaller-card-request-buttons">
+                <Button onClick={() => handleShow('Approved', request._id)}>
+                  <FaCheck className="approveIcon" />
+                </Button>
+                <Button onClick={() => handleShow('Denied', request._id)}>
+                  <FaTimes className="removeIcon" />
+                </Button>
+              </div>
+            </div>
+          ))}
+      </div>
       <Modal isOpen={show} toggle={handleClose}>
         <ModalHeader toggle={handleClose}>Pending request</ModalHeader>
         <ModalBody>{modal.message}</ModalBody>

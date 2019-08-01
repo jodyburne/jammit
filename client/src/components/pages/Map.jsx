@@ -67,10 +67,11 @@ export default function Map({ options, onMount, className, request }) {
         function(results, status, pagination) {
           if (status !== 'OK') return
           createMarkers(results, map)
+          let newPlacesList = []
           for (let i = 0; i < results.length; i++) {
-            placesList.push(results[i])
-            setPlacesList(placesList)
+            newPlacesList.push(results[i])
           }
+          setPlacesList(newPlacesList)
         }
       )
     }

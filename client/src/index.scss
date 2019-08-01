@@ -1,6 +1,8 @@
 // --------------------
 // Definition of variables
-$primary: #14a7a8;
+$green: #14a7a8;
+$bold-orange: #f65b49;
+
 //@import '../node_modules/bootstrap/scss/bootstrap.scss';
 
 // ----------------------------------------
@@ -30,7 +32,7 @@ body {
   width: 64px;
   height: 64px;
   left: 53px;
-  background: url(public/images/002-post-it-1.png);
+  //background: url(public/images/002-post-it-1.png);
 }
 
 .info {
@@ -46,49 +48,18 @@ body {
   background-color: #e73f3f;
 }
 
-// Style for App component
 .App {
   text-align: center;
   font-weight: bold;
-
-  .App-header {
-    position: absolute;
-    width: 375px;
-    height: 62px;
-    left: 0px;
-    top: 606px;
-
-    background: #f29b7f;
-    border: 1px solid #c4c4c4;
-    box-sizing: border-box;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-
-    a {
-      color: white;
-      text-decoration: unset;
-      margin: 0.2rem;
-    }
-  }
-
-  .App-title {
-    font-size: 1.5em;
-  }
-
-  .App-intro {
-    font-size: large;
-  }
-
-  @keyframes App-logo-spin {
-    from {
-      transform: rotate(0deg);
-    }
-
-    to {
-      transform: rotate(360deg);
-    }
-  }
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.footer {
+  color: black;
+}
+.page {
+  flex-grow: 1;
 }
 
 // --------------------
@@ -191,13 +162,18 @@ div.card > .card-img-top {
   position: absolute;
   height: 212px;
   width: 212px;
+  max-width: 80vmin;
+  max-height: 80vmin;
   border-radius: 100%;
   z-index: 10;
-  left: 82px;
-  top: 20px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  top: -30px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .profileBackgroundSquare {
+  margin: 50px auto;
   background: linear-gradient(
       180deg,
       rgba(255, 255, 255, 0.3) 0%,
@@ -205,11 +181,10 @@ div.card > .card-img-top {
     ),
     #86bfc2;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  position: absolute;
+  position: relative;
   width: 309px;
+  max-width: 90%;
   height: 500px;
-  left: 33px;
-  top: 78px;
   display: flex;
   flex-direction: column;
   border-radius: 15px;
@@ -237,10 +212,28 @@ div.card > .card-img-top {
   border: 0.5px solid gray;
 }
 
+.editButton {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  left: 20px;
+  top: -40px;
+  $green: #14a7a8;
+}
+
+.inboxButton {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  right: 20px;
+  top: -40px;
+  $green: #14a7a8;
+}
+
 .circular-fixed-bottom-right-button {
   height: 70px;
   width: 70px;
-  background-color: $primary;
+  background-color: $green;
   color: white;
   border-radius: 50px;
   position: fixed;
@@ -257,5 +250,97 @@ div.card > .card-img-top {
 }
 
 .filter-button {
-  background-color: $primary;
+  background-color: $green;
+}
+
+@media (max-width: 450px) {
+  .App-footer {
+    height: 62px;
+    left: 0px;
+    top: 606px;
+  }
+}
+
+.common-navbar {
+  background: #f29b7f;
+  border: 1px solid #c4c4c4;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+
+  .navLinkElements {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: black;
+    font-size: 10px;
+  }
+
+  .navLinkIcon {
+    width: 25px;
+    height: 25px;
+  }
+
+  .navLinkElements p {
+    margin: 0;
+  }
+}
+
+@media (min-width: 450px) {
+  .App-footer {
+    display: none;
+  }
+}
+
+.smaller-card {
+  width: 339px;
+  height: 112px;
+  border: 1px solid #000000;
+  box-sizing: border-box;
+  border-radius: 10px;
+  display: flex;
+  margin: 1rem;
+  text-align: left;
+}
+
+.smaller-card {
+  img {
+    width: 93px;
+    height: 93px;
+    border-radius: 100%;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    margin: auto;
+  }
+}
+
+.smaller-card-request-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.smaller-card-request-buttons .btn {
+  width: 33px;
+  height: 33px;
+  background-color: white !important;
+  border: none !important;
+}
+
+.approveIcon {
+  color: $green;
+  z-index: -1;
+}
+
+.removeIcon {
+  color: $bold-orange;
+}
+
+.requests h2 {
+  text-align: left;
+}
+
+.modal-backdrop {
+  width: 100% !important;
+  height: 100% !important;
 }
