@@ -8,7 +8,10 @@ const router = express.Router()
 router.get('/', isLoggedIn, (req, res, next) => {
   let userId = req.user._id
   User.findById(userId)
-    .then(user => res.json(user))
+    .then(user => {
+      console.log(res)
+      res.json(user)
+    })
     .catch(err => next(err))
 })
 
@@ -20,7 +23,6 @@ router.put(
   defineData(['bio', 'links', 'jamSpot', 'gear', 'skills', 'name']),
   (req, res, next) => {
     let userId = req.user._id
-    console.log(req)
     if (req.file) {
       req.data['profilePic'] = req.file.secure_url
     }

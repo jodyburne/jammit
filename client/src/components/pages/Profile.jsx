@@ -8,15 +8,11 @@ import { Link } from 'react-router-dom'
 export default function Profile(props) {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')))
 
-  console.log(props.user)
-
   useEffect(() => {
     api.getProfile().then(user => {
       setUser(user)
     })
   }, [])
-
-  // return <div className="Profile">Test</div>
 
   return (
     <div className="Profile">
@@ -34,25 +30,38 @@ export default function Profile(props) {
             <div className="profileText">
               <h3>{user.name}</h3>
               <p>{user.bio}</p>
-              <p>Gear:</p>
-              {user.gear.map((item, i) => (
-                <span className="profile-badge" key={i}>
-                  {item}
-                </span>
-              ))}
-              <p>Skills:</p>
-              {user.skills.map((item, i) => (
-                <span className="profile-badge" key={i}>
-                  {item}
-                </span>
-              ))}
-              <p>{user.jamSpot && 'I have a jam spot!'}</p>
+              <p className="animation-colors">
+                {user.jamSpot && 'I have a jam spot!'}
+              </p>
+
+              <p>{user.gear.length > 0 && 'Gear:'} </p>
+              <div className="badge-wrapper">
+                {user.gear &&
+                  user.gear.map((item, i) => (
+                    <span className="profile-badge" key={i}>
+                      {item}
+                    </span>
+                  ))}
+              </div>
+
+              <p>{user.skills.length > 0 && 'Skills:'}</p>
+              <div className="badge-wrapper">
+                {user.skills &&
+                  user.skills.map((item, i) => (
+                    <span className="profile-badge" key={i}>
+                      {item}
+                    </span>
+                  ))}
+              </div>
+
               <p>{user.links.length > 0 && 'More about me:'}</p>
-              {user.links.map((item, i) => (
-                <span className="profile-badge" key={i}>
-                  {item}
-                </span>
-              ))}
+              <div className="badge-wrapper">
+                {user.links.map((item, i) => (
+                  <div className="profile-badge" key={i}>
+                    {item}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>

@@ -93,7 +93,7 @@ export default {
       .catch(errHandler)
   },
 
-deletePost(adId) {
+  deletePost(adId) {
     return service
       .delete('/myBoards/' + adId)
       .then(res => res.data)
@@ -108,12 +108,12 @@ deletePost(adId) {
       .catch(errHandler)
   },
 
-addComment(uploadData, adId){
-  return service
-    .post('/boards/' + adId, uploadData)
-    .then(res => res.data)
-    .catch(errHandler)
-},
+  addComment(uploadData, adId) {
+    return service
+      .post('/boards/' + adId, uploadData)
+      .then(res => res.data)
+      .catch(errHandler)
+  },
   updateAd(profileData) {
     return service
       .put('/user', profileData)
@@ -125,6 +125,13 @@ addComment(uploadData, adId){
   getProfile() {
     return service
       .get('/user')
+      .then(res => res.data)
+      .catch(errHandler)
+  },
+
+  updatePicture(profilePic) {
+    return service
+      .put('/user', profilePic)
       .then(res => res.data)
       .catch(errHandler)
   },
@@ -156,12 +163,12 @@ addComment(uploadData, adId){
       .catch(errHandler)
   },
 
-addPost(uploadData) {
-  return service
-    .post('/showOff', uploadData)
-    .then(res => res.data)
-    .catch(errHandler)
-},
+  addPost(uploadData) {
+    return service
+      .post('/showOff', uploadData)
+      .then(res => res.data)
+      .catch(errHandler)
+  },
 
   addCountry(body) {
     return service
