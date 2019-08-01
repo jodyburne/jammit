@@ -40,25 +40,33 @@ const [wanted, setWanted] = useState({
       .catch(err => console.log(err))
   }
 
-     
+    const linkColor = 
+    {
+    color: 'white',
+    textDecoration: 'none'
+  }  
   
     return (
       <div>
-      <h1> wanted</h1>
-      
+      <br/>
+      <h4>Wanted</h4>
+      <br/>
+ 
 <div className="btn-group btn-group-toggle" data-toggle="buttons">
-  <label className="btn btn-secondary ">
-    <input type="radio" name="options" id="option1" autoComplete="off" /> <Link to='/postjam'>Jam</Link>
+  <label className="btn btn-secondary filter-button">
+    <input type="radio" name="options" id="option1" autoComplete="off" /> <Link style={linkColor} to='/postjam'>Jam</Link>
   </label>
-  <label className="btn btn-secondary active">
-    <input type="radio" name="options" id="option2" autoComplete="off" defaultChecked/> <Link to='/postwanted'>Wanted</Link>
+  <label className="btn btn-secondary active filter-button">
+    <input type="radio" name="options" id="option2" autoComplete="off" defaultChecked/> <Link style={linkColor} to='/postwanted'>Wanted</Link>
   </label>
-  <label className="btn btn-secondary">
-    <input type="radio" name="options" id="option3" autoComplete="off"/> <Link to='/showOff'> Show Off </Link>
+  <label className="btn btn-secondary filter-button">
+    <input type="radio" name="options" id="option3" autoComplete="off"/> <Link style={linkColor} to='/showOff'> Show Off </Link>
   </label>
+        <br/>
+
 </div>
 
-      <Form>
+      <Form className='gen-form'>
         <FormGroup>
           <Label for="title">Who or what do you need?</Label> <br/>
           <Input type="title" onChange={handleInputChange} name="title" id="title" placeholder="Charismatic frontman needed" />
@@ -72,8 +80,8 @@ const [wanted, setWanted] = useState({
           <Input type="file" onChange={handleInputChange}  name="imageURL" id="photo" />
         </FormGroup>
      
-        <Button onClick={e => handleClickWanted(e)}> Create </Button>
       </Form>
+        <Button className='filter-button'onClick={e => handleClickWanted(e)}> Create </Button>
       
       </div>
     );

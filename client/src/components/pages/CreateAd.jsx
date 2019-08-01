@@ -20,21 +20,23 @@ const [jam, setJam] = useState({
 })
 
 const [instruments, setInstruments] = useState([])
+const [currentInstru, setCurrentInstru] = useState('')
 
   function handleInputChange(e) {
     setJam({
       ...jam,
       [e.target.name]: e.target.value
     })
-  
+  setCurrentInstru(e.target.value)
   }
 
 function handleAddField(e) {
 
     let values
   values = [...instruments]
-  values.push('')
+  values.push(currentInstru)
 setInstruments(values)
+setCurrentInstru('')
  
   }
 
@@ -79,28 +81,33 @@ e.target.value = ''
   }
 
      
-  
+  const linkColor = 
+    {
+    color: 'white',
+    textDecoration: 'none'
+  }
     return (
-      <div>
-      
-      <h1>new jam</h1>
+      <div className='form-container'>
+      <br/>
+      <h4>New Jam</h4>
+      <br/>
 
 
 <div className="btn-group btn-group-toggle" data-toggle="buttons">
-  <label className="btn btn-secondary active">
-    <input type="radio" name="options" id="option1" autoComplete="off" defaultChecked/> <Link to='/postwanted'>Jam</Link>
+  <label className="btn btn-secondary active filter-button">
+    <input type="radio" name="options" id="option1" autoComplete="off" defaultChecked/> <Link style={linkColor} to='/postwanted'>Jam</Link>
   </label>
-  <label className="btn btn-secondary">
-    <input type="radio" name="options" id="option2" autoComplete="off"/> <Link to='/postwanted'>Wanted</Link>
+  <label className="btn btn-secondary filter-button">
+    <input type="radio" name="options" id="option2" autoComplete="off"/> <Link  style={linkColor}  to='/postwanted'>Wanted</Link>
   </label>
-  <label className="btn btn-secondary">
-    <input type="radio" name="options" id="option3" autoComplete="off"/> <Link to='/showOff'> Show Off </Link>
+  <label className="btn btn-secondary filter-button">
+    <input type="radio" name="options" id="option3" autoComplete="off"/> <Link  style={linkColor}  to='/showOff'> Show Off </Link>
   </label>
 </div>
 
 
 
-      <Form>
+      <Form className='gen-form'>
         <FormGroup>
           <Label for="title">Title</Label> <br/>
           <Input type="title" onChange={handleInputChange} name="title" id="title" placeholder="late night jam" />
@@ -129,7 +136,7 @@ e.target.value = ''
         <FormGroup check>
           <Label check>  <br/>
             <Input type="checkbox" />{' '}
-           I have instruments available
+           I have these instruments available:
           </Label>
         </FormGroup>
         <ul>
@@ -138,32 +145,28 @@ e.target.value = ''
 )}
 </ul>
       <FormGroup>
-          <Label for="instruments">Instruments:</Label>
-          <Button type="button" id="instruments"onClick={e => handleAddField(e)} />+
-          {instruments.map((item, i) => (
-            <FormGroup key={`${item}-${i}`}>
+            <FormGroup>
               <Input
                onKeyDown={e => handleEnter(e)} 
                 type="text"
                 name="instruments"
                 id="instruments"
-                //value={item}
+                value={currentInstru}
                 onChange={handleInputChange}
               />
-              <Button
-                type="button"
-                id="instruments"
-                onClick={e => handleRemoveField(i, e)}
-              />
-              X
+          <Button  className='filter-button' type="button" id="instruments"onClick={e => handleAddField(e)}>Add</Button>
+              
             </FormGroup>
-          ))}
         </FormGroup>
 
+        <FormGroup>
+          <Label for="hidden">Specific details</Label> <p className='text-muted'>These details will only be shared with other users after your approval. </p> 
+          <Input type="textarea"  onChange={handleInputChange} name="description" id="description" placeholder="bring your instruments to my place" />
+        </FormGroup>
 
-        <Button onClick={e => handleClickJam(e)}> Create </Button>
       </Form>
-      
+              <Button className='filter-button' onClick={e => handleClickJam(e)}> Create </Button>
+<br/> <br/>
       </div>
     );
   }
