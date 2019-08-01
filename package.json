@@ -17,10 +17,7 @@
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "nodemailer": "^6.3.0",
-<<<<<<< HEAD
-=======
     "react-fontawesome": "^1.6.1",
->>>>>>> 2be0a8295c1c7120653c97a736a3c5084494f35c
     "react-icons": "^3.7.0"
   }
 }
