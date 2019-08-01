@@ -87,17 +87,25 @@ body {
   p {
     font-size: 1em;
   }
+//not working
+  h1 {
+    color: black !important;
+    text-decoration: none !important;
+  }
 }
-
+//not working
 .board-search{
-  border-radius: 10px
+  border-radius: 10px;
 
 }
 .searchButton {
   width: 100%;
-  border-radius: 10px
+  //not working
 }
 
+ .searchButtonEach{
+ border-radius: 20px;
+}
 .boards {
   width: 85%;
   margin: auto
@@ -198,5 +206,6 @@ div.card > .card-img-top {
 }
 
 .filter-button {
-  background-color: $primary
+  background-color: $primary !important;
+  border: none !important;
 }

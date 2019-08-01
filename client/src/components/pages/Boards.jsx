@@ -50,7 +50,7 @@ function filterType(board){
     
     <h4 className='text-left'> Notice Board</h4>
     <InputGroup className='board-search'>
-        <InputGroupAddon  addonType="append">?</InputGroupAddon>
+        <InputGroupAddon  addonType="prepend">?</InputGroupAddon>
         <Input 
       type="text"
       className="search-bar "
@@ -63,69 +63,44 @@ function filterType(board){
  
    <br/>
 
- {/*toggle to tag remove active class not working, instead using ternary   */}
 
-<div className="btn-group  searchButton btn-group-toggle" data-toggle="buttons">
+<div className="btn-group searchButton btn-group-toggle" data-toggle="buttons">
    
-  {state.jamsChecked ? <label name="jamsChecked" className="active btn filter-button btn-primary">
-  <input  
-          type="checkbox"
-          name="jamsChecked"
-          checked={state.jamsChecked}
-          onChange={handleChange}
-          
-        /> Jams
-  </label>
-   : <label name="jamsChecked" className=" btn filter-button btn-primary">
+<label name="jamsChecked" className=" btn active filter-button btn-primary">
    <input
           type="checkbox"
           name="jamsChecked"
           checked={state.jamsChecked}
           onChange={handleChange}
+          className='searchButtonEach'
         
         /> Jams
   </label>
-   } 
+   
 
-  {state.wantedChecked ? <label name="wantedChecked" className="active btn filter-button btn-primary">
-  <input
-          type="checkbox"
-          name="wantedChecked"
-          checked={state.wantedChecked}
-          onChange={handleChange}
-        
-        /> wanted
-  </label>
-   : <label name="wantedChecked" className=" btn filter-button btn-primary">
+ <label name="wantedChecked" className=" btn active filter-button btn-primary">
    <input
           type="checkbox"
           name="wantedChecked"
           checked={state.wantedChecked}
           onChange={handleChange}
-        
-        /> wanted
-  </label>
-   }
+          className='searchButtonEach'
 
-   {state.showOffChecked ? <label name="showOffChecked" className="active btn filter-button btn-primary">
-  <input
-          type="checkbox"
-          name="showOffChecked"
-          checked={state.showOffChecked}
-          onChange={handleChange}
-        
-        /> showOff
+        /> Wanted
   </label>
-   : <label name="showOffChecked" className=" btn filter-button btn-primary">
+   
+
+  <label name="showOffChecked" className=" btn active filter-button btn-primary">
    <input
           type="checkbox"
           name="showOffChecked"
           checked={state.showOffChecked}
           onChange={handleChange}
-        
+         className='searchButtonEach'
+
         /> Show Off
   </label>
-   }
+   
 </div>
 
 
