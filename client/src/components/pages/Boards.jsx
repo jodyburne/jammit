@@ -10,7 +10,7 @@ export default function Boards () {
     search: '',
     jamsChecked: true,
     wantedChecked: true,
-    showOffChecked: true
+    showOffChecked: true,
   })
 
   const [boards, setBoards] = useState([])
@@ -45,7 +45,9 @@ const iconColor = {
   color: '#14a7a8'
 }
 
-// , FaSearch, FaMicrophoneAlt, FaSearchengin
+// function orderPosts() {
+
+// }
 
 
 
@@ -70,7 +72,7 @@ const iconColor = {
 
 <div className="btn-group searchButton btn-group-toggle" data-toggle="buttons">
    
-<label name="jamsChecked" className=" btn active filter-button btn-primary">
+<label name="jamsChecked" className={state.jamsChecked ? " btn active filter-button btn-primary" : "btn"}>
    <input
           type="checkbox"
           name="jamsChecked"
@@ -82,7 +84,7 @@ const iconColor = {
   </label>
    
 
- <label name="wantedChecked" className=" btn active filter-button btn-primary">
+ <label name="wantedChecked" className={state.wantedChecked ? " btn active filter-button btn-primary" : "btn"}>
    <input
           type="checkbox"
           name="wantedChecked"
@@ -94,7 +96,7 @@ const iconColor = {
   </label>
    
 
-  <label name="showOffChecked" className=" btn active filter-button btn-primary">
+  <label name="showOffChecked" className={state.showOffChecked ? " btn active filter-button btn-primary" : "btn"}>
    <input
           type="checkbox"
           name="showOffChecked"

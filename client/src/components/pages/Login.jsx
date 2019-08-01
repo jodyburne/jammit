@@ -35,13 +35,15 @@ export default class Login extends Component {
 
   render() {
     return (
+
       <div className="Login w-75 m-auto" >
+      <br/>
         <h2>Welcome back!</h2>
        <Form>
         <FormGroup>
           <Label for="exampleEmail">Email</Label>
          <InputGroup>
-        <InputGroupAddon addonType="append">@</InputGroupAddon>
+        {/* <InputGroupAddon addonType="append"></InputGroupAddon> */}
         <Input placeholder="david@bowie.com" 
             type="text"
             value={this.state.email}
@@ -55,7 +57,7 @@ export default class Login extends Component {
          <FormGroup>
           <Label for="exampleEmail">Password</Label>
          <InputGroup>
-        <InputGroupAddon addonType="append">*</InputGroupAddon>
+        {/* <InputGroupAddon addonType="append">*</InputGroupAddon> */}
         <Input placeholder="********" 
             type="password"
             value={this.state.password}
@@ -67,7 +69,7 @@ export default class Login extends Component {
             
           
           <br />
-          <Button onClick={e => this.handleClick(e)}>Login</Button>
+          <Button className='filter-button' onClick={e => this.handleClick(e)}>Login</Button>
         </Form>
 
         <br/>
