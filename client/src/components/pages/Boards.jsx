@@ -3,7 +3,7 @@ import api from '../../api'
 import { Link, Redirect } from 'react-router-dom'
 import { InputGroup, InputGroupAddon, InputGroupText, Input, 
 Button, Form, FormGroup, Label, FormText, Container, Row, Col  } from 'reactstrap';
-
+import { FaDrum, FaSearch, FaMicrophoneAlt, FaSearchengin} from 'react-icons/fa' 
 
 export default function Boards () {
   const [state, setState] = useState({
@@ -41,16 +41,20 @@ function filterType(board){
 
   )
 }
+const iconColor = {
+  color: '#14a7a8'
+}
 
+// , FaSearch, FaMicrophoneAlt, FaSearchengin
 
 
 
   return  (
     <div className='boards'>
-    
+    <br/>
     <h4 className='text-left'> Notice Board</h4>
-    <InputGroup className='board-search'>
-        <InputGroupAddon  addonType="prepend">?</InputGroupAddon>
+    <br/>
+    <div className="form-group">
         <Input 
       type="text"
       className="search-bar "
@@ -58,9 +62,9 @@ function filterType(board){
       name="search"
       value={state.search}
       onChange={handleChange}
-        />
-      </InputGroup>
- 
+        />       
+  
+   </div>
    <br/>
 
 
@@ -74,7 +78,7 @@ function filterType(board){
           onChange={handleChange}
           className='searchButtonEach'
         
-        /> Jams
+        /> <FaDrum/> Jams 
   </label>
    
 
@@ -86,7 +90,7 @@ function filterType(board){
           onChange={handleChange}
           className='searchButtonEach'
 
-        /> Wanted
+        /><FaSearchengin/> Wanted 
   </label>
    
 
@@ -98,7 +102,7 @@ function filterType(board){
           onChange={handleChange}
          className='searchButtonEach'
 
-        /> Show Off
+        /> <FaMicrophoneAlt /> Show Off 
   </label>
    
 </div>
@@ -111,22 +115,26 @@ function filterType(board){
   filterType(board)
 )
 .map((board, i) => (
-  <Col md='4'>
-  <div className='noticeCard text-left' key={i}>
+  <Col key={i} md='4'>
+  <div className='noticeCard text-left' >
    <Link
   to={"/boards/" + board._id}>
-  {board.advertType === 'jam' &&
-  <h4>JAM</h4>
-  }
-  {board.advertType === 'wanted' &&
-  <h4>WANTED</h4>
-  }
-  {board.advertType === 'showOff' &&
-  <h4>SHOW OFF</h4>
-  }
+  
+  <br/>
 <img src={board.imageURL} alt=""/>
 </Link>
-<h3>{board.title}</h3>
+<h3>   { 
+board.advertType === 'jam' &&
+  <FaDrum style={iconColor}/>
+  }
+  {board.advertType === 'wanted' &&
+  <FaSearchengin style={iconColor}/>
+  } 
+   {board.advertType === 'showOff' &&
+  <FaMicrophoneAlt style={iconColor}/>
+  } 
+  {'   ' + board.title}
+</h3>
 {board.location && 
 <h5 className='text-muted'>{board.location}</h5>
 }

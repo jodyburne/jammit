@@ -86,15 +86,15 @@ e.target.value = ''
       <h1>new jam</h1>
 
 
-<div class="btn-group btn-group-toggle" data-toggle="buttons">
-  <label class="btn btn-secondary active">
-    <input type="radio" name="options" id="option1" autocomplete="off" checked/> <Link to='/postwanted'>Jam</Link>
+<div className="btn-group btn-group-toggle" data-toggle="buttons">
+  <label className="btn btn-secondary active">
+    <input type="radio" name="options" id="option1" autoComplete="off" defaultChecked/> <Link to='/postwanted'>Jam</Link>
   </label>
-  <label class="btn btn-secondary">
-    <input type="radio" name="options" id="option2" autocomplete="off"/> <Link to='/postwanted'>Wanted</Link>
+  <label className="btn btn-secondary">
+    <input type="radio" name="options" id="option2" autoComplete="off"/> <Link to='/postwanted'>Wanted</Link>
   </label>
-  <label class="btn btn-secondary">
-    <input type="radio" name="options" id="option3" autocomplete="off"/> <Link to='/showOff'> Show Off </Link>
+  <label className="btn btn-secondary">
+    <input type="radio" name="options" id="option3" autoComplete="off"/> <Link to='/showOff'> Show Off </Link>
   </label>
 </div>
 
@@ -133,8 +133,8 @@ e.target.value = ''
           </Label>
         </FormGroup>
         <ul>
-{instruments.map(instru =>
-<li>{instru} </li>
+{instruments.map((instru, i) =>
+<li key={i}>{instru} </li>
 )}
 </ul>
       <FormGroup>

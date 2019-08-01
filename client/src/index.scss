@@ -32,7 +32,6 @@ body {
   width: 64px;
   height: 64px;
   left: 53px;
-  //background: url(public/images/002-post-it-1.png);
 }
 
 .info {
@@ -69,10 +68,6 @@ body {
     font-size: 1em;
   }
   //not working
-  h1 {
-    color: black !important;
-    text-decoration: none !important;
-  }
 }
 
 .board-search {
@@ -112,13 +107,12 @@ div.card > .card-img-top {
 .homeCard {
   width: 80%;
   height: 90%;
-  border: solid 2px black;
+  border: solid 1px black;
   border-radius: 10px;
   padding: 20px;
   margin: 20px auto;
   display: flex;
   flex-direction: column;
-
   justify-content: space-between;
 }
 
@@ -148,9 +142,6 @@ div.card > .card-img-top {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-}
-
-.notices {
 }
 
 .notices {
@@ -196,8 +187,8 @@ div.card > .card-img-top {
   display: flex;
   flex-direction: column;
   border-radius: 15px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   color: #ffffff;
   font-weight: bold;
 }
@@ -252,13 +243,16 @@ div.card > .card-img-top {
   line-height: 1px;
 }
 .circular-fixed-bottom-right-button:after {
-  content: '+';
+  content: "+";
   position: relative;
   top: -5px;
 }
 
 .filter-button {
-  background-color: $green;
+  background-color: $green !important;
+  border: none !important;
+  width: 150px;
+  margin: 0 auto;
 }
 
 @media (max-width: 450px) {
@@ -332,7 +326,6 @@ div.card > .card-img-top {
   width: 33px;
   height: 33px;
   background-color: white !important;
-  border: none !important;
 }
 
 .approveIcon {
@@ -351,4 +344,65 @@ div.card > .card-img-top {
 .modal-backdrop {
   width: 100% !important;
   height: 100% !important;
+}
+
+.adDetailCard {
+  width: 309px;
+  height: 404px;
+  left: 28px;
+  top: 96px;
+  margin: auto;
+
+  background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.3) 0%,
+      rgba(255, 255, 255, 0) 100%
+    ),
+    #86bfc2;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.adDetailCard img {
+  width: 80%;
+  height: auto;
+  border-radius: 15px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.adDetailCard p {
+  padding: 2px 30px;
+  color: white;
+  text-align: left;
+}
+
+.postComment {
+  width: 80vw;
+  margin: auto;
+}
+
+.comment {
+  max-width: 90vw;
+  height: auto;
+  margin: 0.4rem auto;
+  border: solid black 1px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.comment img {
+  border-radius: 50%;
+  margin: 0.2rem;
+}
+
+.search-bar {
+  background-image: url("/images/006-search.png");
+  background-repeat: no-repeat;
+  background-position: 98%;
+  background-size: auto 50%;
 }

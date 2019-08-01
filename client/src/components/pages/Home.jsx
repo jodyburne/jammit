@@ -3,10 +3,17 @@ import { Link } from 'react-router-dom'
 import { Container, Row, Col } from 'reactstrap';
 
 export default class Home extends Component {
-  render() {
+ 
+      render() {
+const styles = 
+    {
+    color: 'black',
+    textDecoration: 'none'
+  }
     return (
  <div className="Home">
-    <h1><Link to='/boards'>Notice Board</Link></h1>
+ <br/>
+    <h1><Link to='/boards' style={styles}>Notice Board</Link></h1>
     <div className='notices'>
     <Row >
       <Col md='4'>
@@ -57,7 +64,7 @@ export default class Home extends Component {
         </Col>
         </Row>
         </div>
-        <h1><Link to='/places-map'>Explore
+        <h1><Link style={styles} to='/places-map'>Explore
         </Link></h1>
         <div className='homeCard'> 
         <div>
