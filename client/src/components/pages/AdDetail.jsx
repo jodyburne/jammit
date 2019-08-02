@@ -69,7 +69,8 @@ export default function AdDetail(props) {
           <h5> {detail.title} </h5> <br />
           <div className="adDetailCard">
             <div>
-              <img src={detail.imageURL} height="100" alt="" />
+              <br />
+              <img src={detail.imageURL} alt="" />
             </div>
             <div>
               <p>{detail.description}</p>
@@ -99,6 +100,7 @@ export default function AdDetail(props) {
             {detail.advertType === 'wanted' && (
               <Button className="filter-button">Contact</Button>
             )}
+            <br />
           </div>
           <br />
           <div>
@@ -108,7 +110,7 @@ export default function AdDetail(props) {
               comments.map((com, i) => (
                 <div className="comment" key={i}>
                   <div>
-                    <img height="120px" src={com.creatorImg} alt="" />
+                    <img src={com.creatorImg} alt="" />
                   </div>
                   <div>
                     <p className="text-center">
