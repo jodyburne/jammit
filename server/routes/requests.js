@@ -5,7 +5,7 @@ const Advert = require('../models/Advert')
 const router = express.Router()
 
 /*This route is for creating requests*/
-router.get('/create-request/:advertId', isLoggedIn, (req, res, next) => {
+router.post('/create-request/:advertId', isLoggedIn, (req, res, next) => {
   let advertId = req.params.advertId
   let requester = req.user._id
   let message = req.body.message

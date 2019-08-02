@@ -150,6 +150,13 @@ export default {
       .catch(errHandler)
   },
 
+  createRequest(adId, message) {
+    return service
+      .post('/requests/create-request/' + adId, message)
+      .then(res => res.data)
+      .catch(errHandler)
+  },
+
   handleRequests(requestId, answer) {
     return service
       .put('/requests/handle-requests/' + requestId, answer)

@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import api from '../../api'
 import { Form, Button, FormGroup, Label, Input, FormText } from 'reactstrap'
+import { Link } from 'react-router-dom'
 
 export default function Profile() {
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')))
+  const [user, setUser] = useState({})
   const [file, setFile] = useState()
-  const [message, setMessage] = useState('')
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    api.getProfile().then(user => {
-      setUser(user)
-    })
+    api
+      .getProfile()
+      .then(user => {
+        setUser(user)
+      })
+      .then(setIsLoading(false))
   }, [])
 
   function handleAddField(e) {
@@ -125,10 +129,10 @@ export default function Profile() {
       .updateProfile(user)
       .then(result => {
         setUser(result)
-        setMessage(`Profile Updated`)
-        setTimeout(() => {
+        /* setMessage(`Profile Updated`) */
+        /* setTimeout(() => {
           setMessage(null)
-        }, 2000)
+        }, 2000) */
       })
       .catch(err => setUser({ message: err.toString() }))
 
@@ -136,135 +140,175 @@ export default function Profile() {
       .updatePicture(profilePic)
       .then(result => {
         setUser(result)
-        setMessage('Profile Updated')
+        /* setMessage('Profile Updated')
         setTimeout(() => {
           setMessage(null)
-        }, 2000)
+        }, 2000) */
       })
       .catch(err => setUser({ message: err.toString() }))
   }
 
   return (
-    <div className="edit-profile">
-      <h2>Edit Profile</h2>
-      <Form onSubmit={handleSubmit}>
-        <FormGroup>
-          <Label for="exampleName">Name</Label>
-          <Input
-            type="text"
-            name="name"
-            id="name"
-            value={user.name}
-            placeholder="George Harrison"
-            onChange={handleInputChange}
-          />
-        </FormGroup>
-        <FormGroup>
-          <Label for="exampleFile">Profile Picture</Label>
-          <Input
-            type="file"
-            name="profilePic"
-            id="exampleFile"
-            onChange={handleInputFile}
-          />
-        </FormGroup>
-        <FormText>Example help text that remains unchanged.</FormText>
-        <FormGroup>
-          <Label for="bio">Bio</Label>
-          <Input
-            type="textarea"
-            name="bio"
-            id="bio"
-            value={user.bio}
-            onChange={handleInputChange}
-          />
-        </FormGroup>
-        <Label check>
-          <Input
-            type="checkbox"
-            onChange={handleInputChange}
-            name="jamSpot"
-            checked={user.jamSpot}
-          />
-          I have a jam spot
-        </Label>
-        <FormText color="muted">
-          Check if you have your own jam place and you're open to invite friends
-          to it
-        </FormText>
-
-        <FormGroup>
-          <Label for="links">More about me:</Label>
-          <Button type="button" id="links" onClick={e => handleAddField(e)} />+
-          {user.links.map((link, i) => (
-            <FormGroup key={i}>
+    <div className="boards">
+      <br />
+      {
+        <div>
+          <h4 className="text-left">Edit Profile</h4>
+          <br />
+          <Form onSubmit={handleSubmit} className="gen-form">
+            <FormGroup>
+              <Label for="exampleName">Name</Label>
               <Input
                 type="text"
-                name="links"
-                id="links"
-                placeholder="my soundcloud url..."
-                value={link}
-                onChange={e => handleDynamicInput(e, i)}
+                name="name"
+                id="name"
+                value={user.name}
+                placeholder="George Harrison"
+                onChange={handleInputChange}
               />
+            </FormGroup>
+            <FormGroup>
+              <Label for="exampleFile">Profile Picture</Label>
+              <Input
+                type="file"
+                name="profilePic"
+                id="exampleFile"
+                onChange={handleInputFile}
+              />
+            </FormGroup>
+            <FormText>Example help text that remains unchanged.</FormText>
+            <FormGroup>
+              <Label for="bio">Bio</Label>
+              <Input
+                type="textarea"
+                name="bio"
+                id="bio"
+                value={user.bio}
+                onChange={handleInputChange}
+              />
+            </FormGroup>
+            <FormGroup check>
+              <Label check />
+              <Input
+                type="checkbox"
+                onChange={handleInputChange}
+                name="jamSpot"
+                checked={user.jamSpot}
+              />{' '}
+              I have a jam spot
+            </FormGroup>
+
+            <FormText color="muted" className="muted-text-box ">
+              Check if you have your own jam place and you're open to invite
+              friends to it
+            </FormText>
+
+            <FormGroup>
+              <Label for="links">More about me:</Label>
               <Button
+                className="form-button"
                 type="button"
                 id="links"
-                onClick={e => handleRemoveField(i, e)}
-              />
-              X
+                onClick={e => handleAddField(e)}
+              >
+                +
+              </Button>
+              {user.links &&
+                user.links.map((link, i) => (
+                  <FormGroup key={i} className="input-form-group">
+                    <Input
+                      type="text"
+                      name="links"
+                      id="links"
+                      placeholder="my soundcloud url..."
+                      value={link}
+                      onChange={e => handleDynamicInput(e, i)}
+                    />
+                    <Button
+                      className="form-button"
+                      type="button"
+                      id="links"
+                      onClick={e => handleRemoveField(i, e)}
+                    >
+                      x
+                    </Button>
+                  </FormGroup>
+                ))}
             </FormGroup>
-          ))}
-        </FormGroup>
 
-        <FormGroup>
-          <Label for="gear">Personal Gear:</Label>
-          <Button type="button" id="gear" onClick={e => handleAddField(e)} />+
-          {user.gear.map((item, i) => (
-            <FormGroup key={i}>
-              <Input
-                type="text"
-                name="gear"
-                id="gear"
-                value={item}
-                onChange={e => handleGear(e, i)}
-              />
+            <FormGroup>
+              <Label for="gear">Personal Gear:</Label>
               <Button
+                className="form-button"
                 type="button"
                 id="gear"
-                onClick={e => handleRemoveField(i, e)}
-              />
-              X
+                onClick={e => handleAddField(e)}
+              >
+                +{' '}
+              </Button>
+              {user.gear &&
+                user.gear.map((item, i) => (
+                  <FormGroup key={i} className="input-form-group">
+                    <Input
+                      type="text"
+                      name="gear"
+                      id="gear"
+                      value={item}
+                      onChange={e => handleGear(e, i)}
+                    />
+                    <Button
+                      className="form-button"
+                      type="button"
+                      id="gear"
+                      onClick={e => handleRemoveField(i, e)}
+                    >
+                      x
+                    </Button>
+                  </FormGroup>
+                ))}
             </FormGroup>
-          ))}
-        </FormGroup>
 
-        <FormGroup>
-          <Label for="skills">Musical skills:</Label>
-          <Button type="button" id="skills" onClick={e => handleAddField(e)} />+
-          {user.skills.map((skill, i) => (
-            <FormGroup key={i}>
-              <Input
-                type="text"
-                name="skills"
-                id="skills"
-                value={skill}
-                onChange={e => handleSkills(e, i)}
-              />
+            <FormGroup>
+              <Label for="skills">Musical skills:</Label>
               <Button
+                className="form-button"
                 type="button"
                 id="skills"
-                onClick={e => handleRemoveField(i, e)}
-              />
-              X
+                onClick={e => handleAddField(e)}
+              >
+                +{' '}
+              </Button>
+              {user.skills &&
+                user.skills.map((skill, i) => (
+                  <FormGroup key={i} className="input-form-group">
+                    <Input
+                      type="text"
+                      name="skills"
+                      id="skills"
+                      value={skill}
+                      onChange={e => handleSkills(e, i)}
+                    />
+                    <Button
+                      type="button"
+                      id="skills"
+                      className="form-button"
+                      onClick={e => handleRemoveField(i, e)}
+                    >
+                      x
+                    </Button>
+                  </FormGroup>
+                ))}
             </FormGroup>
-          ))}
-        </FormGroup>
 
-        <Button>Submit</Button>
-      </Form>
-      {message && <div className="info">{message}</div>}
+            <Link to="/user">
+              {' '}
+              <Button className="filter-button">Submit</Button>{' '}
+            </Link>
+          </Form>
+        </div>
+      }
 
-      <pre>user = {JSON.stringify(user, null, 2)}</pre>
+      {/* message && <div className="info">{message}</div> */}
     </div>
   )
 }

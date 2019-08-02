@@ -3,7 +3,7 @@ import PlaceCard from './PlaceCard'
 import { Input, Button } from 'reactstrap'
 
 export default function Map({ options, onMount, className, request }) {
-  const props = { ref: useRef(), className }
+  /* const props = { ref: useRef(), className }
   const [map, setMap] = useState(undefined)
   const [service, setService] = useState(undefined)
   const [mapView, setMapView] = useState(true)
@@ -163,7 +163,7 @@ export default function Map({ options, onMount, className, request }) {
       /* script.src = `https://maps.google.com/maps/api/js?key=${
         process.env.REACT_APP_GOOGLE_MAPS_API_KEY
       }&libraries=places` */
-      script.src = `https://maps.google.com/maps/api/js?key=AIzaSyC1IKp2B5k64M046doaAQiQz6B_OkcvlYg&libraries=places`
+  /*script.src = `https://maps.google.com/maps/api/js?key=AIzaSyC1IKp2B5k64M046doaAQiQz6B_OkcvlYg&libraries=places`
       //process.env.GOOGLE_MAPS_API_KEY
       const headScript = document.getElementsByTagName(`script`)[0]
       headScript.parentNode.insertBefore(script, headScript)
@@ -205,7 +205,7 @@ export default function Map({ options, onMount, className, request }) {
         ))}
       </div>
     </div>
-  )
+  ) */
 }
 
 Map.defaultProps = {
