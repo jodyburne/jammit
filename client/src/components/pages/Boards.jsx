@@ -160,7 +160,7 @@ export default function Boards() {
                   {'   ' + board.title}
                 </h6>
                 {board.location && (
-                  <h7 className="text-muted">{board.location}</h7>
+                  <h6 className="text-muted">{board.location}</h6>
                 )}
               </div>
             </Col>

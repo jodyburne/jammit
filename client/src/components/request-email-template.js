@@ -1,6 +1,7 @@
-module.exports = {
-  template: message => {
-    return `<!doctype html>
+// module.exports = {
+//   template: message => {
+const reqAcceptedTemplate = function(name, location, date, time, details) {
+  return `<!doctype html>
     <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
       <head>
         <title>
@@ -336,13 +337,15 @@ module.exports = {
       <div
          style="font-family:Roboto, Helvetica, sans-serif;font-size:16px;font-weight:300;line-height:24px;text-align:left;color:#616161;"
       >
-        <h5>Hello user!</h5>
+        <h5>Hello, ${name}!</h5>
           <p> Thanks you for interest! Here is all the information you need:</p>
-          <h5>Location:</h5>
-          <h5>Date:</h5>
-          <h5>Time:</h5>
-          <p align="center">Best Regards,</p>
-          <p align="center">Me</p>
+          <p><b>Location: </b> ${location}</p>
+          <p><b>Date: </b> ${date} </p>
+          <p><b>Time: </b> ${time} </p>
+          <h5>The host shared these further details with you:
+          </h5><p>${details}</p>
+          <p align="center">Have fun,</p>
+          <p align="center">Jammit</p>
       </div>
     
               </td>
@@ -379,5 +382,5 @@ module.exports = {
       </body>
     </html>
   `
-  },
 }
+module.exports = reqAcceptedTemplate

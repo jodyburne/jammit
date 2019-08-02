@@ -124,7 +124,9 @@ router.post('/postwanted', isLoggedIn,  uploadCloud.single("file"), (req, res, n
 // gets all ads
 router.get('/boards', isLoggedIn, (req, res, next) => {
   Advert.find()
+  .sort({created_at:-1})
   .then(ads => {
+
     res.json(ads)
   })
 })
@@ -133,14 +135,14 @@ router.get('/boards', isLoggedIn, (req, res, next) => {
 //get ad detail
 router.get('/boards/:advertId', (req, res, next) => {
   let advertId = req.params.advertId;
+  let user =  req.user._id
   Promise.all([
-  Advert.findById(req.params.advertId)
-  // .populate()
-  ,
+    User.findById(user),
+    Advert.findById(req.params.advertId).populate("_user"),
     Comment.find({ _post: advertId })
-  ]).then(([ad, comments]) => {
-     console.log('advert and comments i wish', ad, comments)
-      res.json([ad, comments])
+  ]).then(([user, ad, comments]) => {
+     console.log('advert and comments i wish', user)
+      res.json({user, ad, comments })
     })
     .catch(next)
 })

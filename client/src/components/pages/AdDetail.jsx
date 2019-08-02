@@ -18,11 +18,16 @@ export default function AdDetail(props) {
   const [comments, setComments] = useState([])
   const [detail, setDetail] = useState(null)
   const [currentComment, setCurrentComment] = useState('')
-
+  let currentUser =  api.getLocalStorageUser()._id
+  let postOwner = detail && detail._user._id
+     console.log('users', currentUser, postOwner, detail, currentUser && (
+      currentUser !== postOwner && (
+        detail && detail.advertType === 'jam')))
+        
   useEffect(() => {
     api.getAdDetail(adId).then(data => {
-      setDetail(data[0])
-      if (data[1]) {
+      setDetail(data.ad)
+      if (data.comments) {
         setComments(data[1])
       }
     })
