@@ -33,10 +33,10 @@ body {
 
 .info {
   margin: 20px;
-  padding: 10px 20px;
+  padding: 5px 10px;
   border-radius: 10px;
   display: inline-block;
-  background-color: #5776e9;
+  background-color: grey;
   color: white;
 }
 
@@ -131,12 +131,11 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-    color: $green
-
+  color: $green;
 }
 
 .homeCard p {
-  color: black
+  color: black;
 }
 
 .noticeCard {
@@ -201,6 +200,7 @@ body {
 
 .profileBackgroundSquare {
   margin: 50px auto;
+  padding: 0.2rem;
   background: linear-gradient(
       180deg,
       rgba(255, 255, 255, 0.3) 0%,
