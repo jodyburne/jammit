@@ -113,15 +113,18 @@ export default function AdDetail(props) {
 
             {comments &&
               comments.map((com, i) => (
-                <div className="comment" key={i}>
+                <div className="smaller-card" key={i}>
                   <div>
                     <img src={com.creatorImg} alt="" />
                   </div>
                   <div>
-                    <p className="text-center">
+                    <p className="smaller-card-text">
                       {com.postedBy ? com.postedBy : com.userEmail}
                     </p>
-                    <p className="text-muted"> {com.content} </p>
+                    <p className="smaller-card-text text-muted">
+                      {' '}
+                      {com.content}{' '}
+                    </p>
                   </div>
                 </div>
               ))}
