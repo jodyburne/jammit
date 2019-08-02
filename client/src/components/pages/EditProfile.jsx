@@ -293,7 +293,7 @@ export default function Profile() {
                   </FormGroup>
                 ))}
             </FormGroup>
-            <Button className="filter-button">Submit</Button>{' '}
+            <Button className="filter-button marginized">Submit</Button>{' '}
           </Form>
         </div>
       }
