@@ -99,15 +99,13 @@ export default function AdDetail(props) {
             )}
 
              
-            {(detail.advertType === 'jam') && (
+            
               <Button className="filter-button" onClick={toggle}>
-                Request to Join
+                Request to contact
               </Button>
-            ),
-            (detail.advertType === 'wanted') && (
-              <Button className="filter-button">Contact</Button>
-            )
-             }
+            
+            
+             
             <br />
           </div>
           <br />
