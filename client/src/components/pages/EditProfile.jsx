@@ -93,7 +93,6 @@ export default function Profile() {
 
   function handleSkills(e, indexToChange) {
     let inputField = e.target
-    console.log('DEBUG USER SKILLS', user.skills)
     setUser({
       ...user,
       skills: user.skills.map((skill, i) => {
@@ -105,7 +104,6 @@ export default function Profile() {
 
   function handleGear(e, indexToChange) {
     let inputField = e.target
-    console.log('DEBUG USER GEAR', user.gear)
     setUser({
       ...user,
       gear: user.gear.map((gear, i) => {
@@ -197,12 +195,10 @@ export default function Profile() {
               />{' '}
               I have a jam spot
             </FormGroup>
-
             <FormText color="muted" className="muted-text-box ">
               Check if you have your own jam place and you're open to invite
               friends to it
             </FormText>
-
             <FormGroup>
               <Label for="links">More about me:</Label>
               <Button
@@ -235,7 +231,6 @@ export default function Profile() {
                   </FormGroup>
                 ))}
             </FormGroup>
-
             <FormGroup>
               <Label for="gear">Personal Gear:</Label>
               <Button
@@ -267,7 +262,6 @@ export default function Profile() {
                   </FormGroup>
                 ))}
             </FormGroup>
-
             <FormGroup>
               <Label for="skills">Musical skills:</Label>
               <Button
@@ -299,11 +293,7 @@ export default function Profile() {
                   </FormGroup>
                 ))}
             </FormGroup>
-
-            <Link to="/user">
-              {' '}
-              <Button className="filter-button">Submit</Button>{' '}
-            </Link>
+            <Button className="filter-button">Submit</Button>{' '}
           </Form>
         </div>
       }

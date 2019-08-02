@@ -11,6 +11,7 @@ const advertSchema = new mongoose.Schema({
   imageURL: { type: String, default: './../images/harrison.jpg' },
   advertType: { type: String, enum: ['wanted', 'jam', 'showOff'], required: true },
   instruments: [String],
+  specific: String
   // comments: {type: [ { type: Schema.Types.ObjectId, ref: 'Comment' }  ] } 
   
 },

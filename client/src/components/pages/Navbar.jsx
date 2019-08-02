@@ -44,7 +44,6 @@ function Navbar(props) {
           </div>
         </NavLink>
       )}
-      {!api.isLoggedIn() && <NavLink to="/signup">Signup</NavLink>}
       {!api.isLoggedIn() && (
         <NavLink to="/login">
           <div className="navLinkElements">

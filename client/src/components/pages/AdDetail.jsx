@@ -131,7 +131,7 @@ export default function AdDetail(props) {
                   id="content"
                   type="text"
                   maxLength="10"
-                  placeholder="You have questions?  Post a comment here."
+                  placeholder="Questions? Post here!"
                 />
               </FormGroup>
               <Button className="filter-button" onClick={e => handleSubmit(e)}>

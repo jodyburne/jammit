@@ -15,6 +15,16 @@ router.get('/', isLoggedIn, (req, res, next) => {
     .catch(err => next(err))
 })
 
+/* This route returns the info about another selected user*/
+router.get('/:id', isLoggedIn, (req, res, next) => {
+  let userId = req.params.id
+  User.findById(userId)
+    .then(user => {
+      res.json(user)
+    })
+    .catch(err => next(err))
+})
+
 /* This route allows editing user profile*/
 router.put(
   '/',

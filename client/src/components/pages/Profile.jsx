@@ -10,12 +10,20 @@ export default function Profile(props) {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    api
-      .getProfile()
-      .then(user => {
+    console.log(window.location.href.substring(27, window.location.href.length))
+    if (window.location.href.length > 27) {
+      api
+        .getAnotherProfile(
+          window.location.href.substring(27, window.location.href.length)
+        )
+        .then(user => {
+          setUser(user)
+        })
+    } else {
+      api.getProfile().then(user => {
         setUser(user)
       })
-      .then(setIsLoading(false))
+    }
   }, [])
 
   return (

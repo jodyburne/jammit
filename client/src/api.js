@@ -71,13 +71,6 @@ export default {
       .then(res => res.data)
       .catch(errHandler)
   },
-  //not yet tested
-  // getProfile() {
-  //   return service
-  //   .get('/user')
-  //   .then(res => res.data)
-  //   .catch(errHandler)
-  // }
 
   getBoards() {
     return service
@@ -101,7 +94,6 @@ export default {
   },
 
   getAdDetail(adId) {
-    console.log('HI THERE', adId)
     return service
       .get('/boards/' + adId)
       .then(res => res.data)
@@ -121,10 +113,16 @@ export default {
       .catch(errHandler)
   },
 
-  //not yet tested
   getProfile() {
     return service
       .get('/user')
+      .then(res => res.data)
+      .catch(errHandler)
+  },
+
+  getAnotherProfile(userId) {
+    return service
+      .get('/user/' + userId)
       .then(res => res.data)
       .catch(errHandler)
   },

@@ -58,14 +58,15 @@ export default function Requests() {
   console.log(requests)
 
   return (
-    <div className="requests">
-      <h2>Requests: </h2>
+    <div className="boards">
+      <br />
+      <h4 className="text-left">Requests: </h4>
       <div>
         {requests
-          //.filter(request => request.approval === 'Pending')
+          .filter(request => request.approval === 'Pending')
           .map(request => (
             <div className="smaller-card" key={request._id}>
-              <Link to="/user">
+              <Link to={'/user/' + request._requester._id}>
                 <img
                   src={
                     request._requester.profilePic ||
