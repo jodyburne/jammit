@@ -41,7 +41,7 @@ export default class Home extends Component {
                     <div>
                       <Link to="/boards">
                         <img
-                          src="https://t4.ftcdn.net/jpg/00/75/85/41/240_F_75854194_TOPxmbnwSwgf93uRzSEcRWSm3sr4pBz8.jpg"
+                          src="https://www.hellomonaco.com/wordpress/wp-content/uploads/2017/05/star-606487.jpg"
                           alt=""
                         />
                       </Link>
@@ -59,7 +59,7 @@ export default class Home extends Component {
                     <div>
                       <Link to="/boards">
                         <img
-                          src="https://i.guim.co.uk/img/media/ce0a1ef91b2b55ffc79d002c939c0505337968c2/0_101_2866_1720/master/2866.jpg?width=300&quality=85&auto=format&fit=max&s=729adedb142f0841d6eb701c4b423c10"
+                          src="https://timedotcom.files.wordpress.com/2019/03/john-lennon-yoko-ono-lie-in-bed-in.jpg"
                           alt=""
                         />
                       </Link>

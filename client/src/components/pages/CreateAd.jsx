@@ -51,7 +51,7 @@ export default function CreateAd(props) {
       values.push(e.target.value)
       setInstruments(values)
       setCurrentInstru(' ')
-    }
+    }}
 
     function handleClickJam(e) {
       const uploadData = {
@@ -225,4 +225,4 @@ export default function CreateAd(props) {
       </div>
     )
   }
-}
+
