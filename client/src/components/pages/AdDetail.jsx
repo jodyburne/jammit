@@ -18,8 +18,8 @@ export default function AdDetail(props) {
   const [comments, setComments] = useState([])
   const [detail, setDetail] = useState(null)
   const [currentComment, setCurrentComment] = useState('')
-  // let currentUser =  api.getLocalStorageUser()._id
-  // let postOwner = detail && detail._user._id
+  let currentUser = api.getLocalStorageUser()._id
+  let postOwner = detail && detail._user._id
   //    console.log('users', currentUser, postOwner, detail, currentUser && (
   //     currentUser !== postOwner && (
   //       detail && detail.advertType === 'jam')))
@@ -27,6 +27,7 @@ export default function AdDetail(props) {
   useEffect(() => {
     api.getAdDetail(adId).then(data => {
       setDetail(data.ad)
+      console.log(data.ad.advertType)
       if (data.comments) {
         setComments(data.comments)
       }
@@ -98,16 +99,10 @@ export default function AdDetail(props) {
               </div>
             )}
 
-            {detail.advertType === 'jam' && (
-              <Button className="filter-button" onClick={toggle}>
-                Request to Join
-              </Button>
-            )}
-            {detail.advertType === 'wanted' && (
-              <Button className="filter-button" onClick={toggle}>
-                Contact
-              </Button>
-            )}
+            <Button className="filter-button" onClick={toggle}>
+              Request to contact
+            </Button>
+
             <br />
           </div>
           <br />

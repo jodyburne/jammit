@@ -33,7 +33,7 @@ const [wanted, setWanted] = useState({
     }
 
     api.
-     addAd(uploadData)
+     addWanted(uploadData)
       .then(ad => {
       props.history.push('/boards')
       })
