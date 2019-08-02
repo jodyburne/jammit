@@ -244,7 +244,7 @@ export default function Map({ options, onMount, className, request }) {
       <div style={showCard}>
         <PlaceCard isMap {...singlePlace} />
       </div>
-      <div className="single-single" style={showList}>
+      <div className="ListContainer" style={showList}>
         {placesList.map((place, i) => (
           <PlaceCard {...place} key={i} />
         ))}
@@ -252,7 +252,7 @@ export default function Map({ options, onMount, className, request }) {
     </div>
   )
 }
-
+//should work now
 Map.defaultProps = {
   options: {
     center: { lat: 38.7436057, lng: -9.2302439 },
