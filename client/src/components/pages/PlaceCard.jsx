@@ -9,23 +9,31 @@ import {
   Button,
 } from 'reactstrap'
 
-export default function PlaceCard(place) {
+export default function PlaceCard(props) {
+  // console.log(number)
+  let className = 'singleCard'
+  if (props.isMap) {
+    className += ' single-single'
+  }
   return (
-    <Card>
+    <Card className={className}>
       <CardImg
         top
         width="100%"
         src={
-          (place.photos && place.photos[0] && place.photos[0].getUrl()) ||
+          (props.photos && props.photos[0] && props.photos[0].getUrl()) ||
           'https://i.ytimg.com/vi/1bPtyCqc19o/maxresdefault.jpg'
         }
         alt="Card image cap"
       />
       <CardBody>
-        <CardTitle>{place.name || 'Default Name'}</CardTitle>
-        <CardSubtitle>{place.vicinity || 'Default Location'}</CardSubtitle>
-        <CardText />
-        <Button>More</Button>
+        {/*  <CardTitle>{place.name || 'Default Name'}</CardTitle>
+        <CardSubtitle>{place.vicinity || 'Default Location'}</CardSubtitle> */}
+        <CardText>
+          <p>{props.name || 'Default Name'}</p>
+          <p>{props.vicinity || 'Default Location'}</p>
+        </CardText>
+        {/*  <Button>More</Button> */}
       </CardBody>
     </Card>
   )

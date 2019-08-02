@@ -90,18 +90,31 @@ body {
   margin: auto;
 }
 
-.SingleCard .card {
+.singleCard {
   flex-direction: row !important;
-  font-size: 0.2rem;
+  font-size: 0.7rem;
   z-index: 10 !important;
-  position: absolute !important;
+  /* position: absolute !important;
   left: 1% !important;
-  bottom: 20% !important;
+  bottom: 20% !important; */
   width: 50vh !important;
+  margin: 0.5rem auto;
 }
 
-div.card > .card-img-top {
-  width: 20vh !important;
+.single-single {
+  transform: translate(-2%, -130%);
+}
+
+.singleCard {
+  img {
+    width: 93px;
+    height: 93px;
+    max-width: 80vmin;
+    max-height: 80vmin;
+    border-radius: 100%;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    margin: 0.5rem;
+  }
 }
 
 .card-body  {
@@ -339,7 +352,7 @@ div.card > .card-img-top {
 }
 
 .press-login {
-  transform: translate(0, -130%);
+  transform: translate(0, 2270%);
 }
 
 .common-navbar {
@@ -375,8 +388,7 @@ div.card > .card-img-top {
 }
 
 .smaller-card {
-  width: 339px;
-  height: 112px;
+  min-width: 300px;
   border: 1px solid #000000;
   box-sizing: border-box;
   border-radius: 10px;
@@ -389,9 +401,11 @@ div.card > .card-img-top {
   img {
     width: 93px;
     height: 93px;
+    max-width: 80vmin;
+    max-height: 80vmin;
     border-radius: 100%;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    margin: auto;
+    margin: 0.5rem;
   }
 }
 
@@ -399,11 +413,22 @@ div.card > .card-img-top {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  padding-right: 1rem;
+}
+
+.smaller-card-text {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.5rem;
+}
+
+.smaller-card-text {
+  .message {
+    font-weight: normal;
+  }
 }
 
 .smaller-card-request-buttons .btn {
-  width: 33px;
-  height: 33px;
   background-color: white !important;
 }
 
@@ -550,10 +575,6 @@ div.card > .card-img-top {
     color: $pink;
   }
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> 5ba2246ce1d12581e1361c0fbe8650b8a0cc980d
 .gen-form {
   width: 80vw;
   margin: auto;
@@ -568,11 +589,8 @@ div.card > .card-img-top {
   background-color: $green !important;
   font-size: 1px;
 }
-<<<<<<< HEAD
-=======
 
-// @media only screen and (max-width: 600px) {
-//   body {
-//   
-// }
->>>>>>> 5ba2246ce1d12581e1361c0fbe8650b8a0cc980d
+.marginized {
+  margin: 1rem auto;
+  border: 1px solid #c4c4c4;
+}

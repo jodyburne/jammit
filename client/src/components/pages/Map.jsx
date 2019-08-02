@@ -3,7 +3,7 @@ import PlaceCard from './PlaceCard'
 import { Input, Button } from 'reactstrap'
 
 export default function Map({ options, onMount, className, request }) {
-  /* const props = { ref: useRef(), className }
+  const props = { ref: useRef(), className }
   const [map, setMap] = useState(undefined)
   const [service, setService] = useState(undefined)
   const [mapView, setMapView] = useState(true)
@@ -23,6 +23,16 @@ export default function Map({ options, onMount, className, request }) {
     vinicity: 'Empty',
     photos: [],
   })
+
+  function handleChange(e) {
+    if (e.target.name === 'Map') {
+      setMapView(true)
+    } else {
+      setMapView(false)
+    }
+
+    handleViewMode()
+  }
 
   function getCurrentLocation() {
     if (navigator.geolocation) {
@@ -163,7 +173,7 @@ export default function Map({ options, onMount, className, request }) {
       /* script.src = `https://maps.google.com/maps/api/js?key=${
         process.env.REACT_APP_GOOGLE_MAPS_API_KEY
       }&libraries=places` */
-  /*script.src = `https://maps.google.com/maps/api/js?key=AIzaSyC1IKp2B5k64M046doaAQiQz6B_OkcvlYg&libraries=places`
+      script.src = `https://maps.google.com/maps/api/js?key=AIzaSyC1IKp2B5k64M046doaAQiQz6B_OkcvlYg&libraries=places`
       //process.env.GOOGLE_MAPS_API_KEY
       const headScript = document.getElementsByTagName(`script`)[0]
       headScript.parentNode.insertBefore(script, headScript)
@@ -192,20 +202,55 @@ export default function Map({ options, onMount, className, request }) {
   }
 
   return (
-    <div className="placesContainer">
+    <div className="boards">
+      <div
+        className="btn-group searchButton btn-group-toggle marginized"
+        data-toggle="buttons"
+      >
+        <label
+          name="Map"
+          className={
+            mapView === true ? ' btn active filter-button btn-primary' : 'btn'
+          }
+        >
+          <input
+            type="checkbox"
+            name="Map"
+            checked={mapView}
+            onChange={handleChange}
+            className="searchButtonEach"
+          />{' '}
+          Map
+        </label>
+
+        <label
+          name="view-list"
+          className={
+            mapView === false ? ' btn active filter-button btn-primary' : 'btn'
+          }
+        >
+          <input
+            type="checkbox"
+            name="view-map"
+            checked={!mapView}
+            onChange={handleChange}
+            className="searchButtonEach"
+          />
+          List
+        </label>
+      </div>
       <Input id="pac-input" />
       <div {...props} style={mapStyle} />
       <div style={showCard}>
-        <PlaceCard {...singlePlace} className="SingleCard" />
+        <PlaceCard isMap {...singlePlace} />
       </div>
-      <Button onClick={handleViewMode} /> List View / Map View
       <div className="ListContainer" style={showList}>
         {placesList.map((place, i) => (
           <PlaceCard {...place} key={i} />
         ))}
       </div>
     </div>
-  ) */
+  )
 }
 
 Map.defaultProps = {

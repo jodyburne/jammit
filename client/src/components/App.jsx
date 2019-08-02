@@ -38,7 +38,7 @@ export default class App extends Component {
             <Route render={() => <h2>404</h2>} />
           </Switch>
         </div>
-        {api.isLoggedIn() && <Navbar className="common-navbar App-footer" />}
+        <Navbar className="common-navbar App-footer" />
       </div>
     )
   }
