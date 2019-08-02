@@ -16,6 +16,10 @@ function Navbar(props) {
     api.logout()
   }
 
+  if (!api.isLoggedIn()) {
+    return <></>
+  }
+
   return (
     <div class="common-navbar App-footer">
       <NavLink to="/" exact>
