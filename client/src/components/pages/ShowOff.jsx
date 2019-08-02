@@ -30,7 +30,7 @@ const [showOff, setShowOff] = useState({
     }
 
     api.
-     addAd(uploadData)
+     addPost(uploadData)
       .then(showOff => {
       props.history.push('/boards')
       })
@@ -64,7 +64,7 @@ const [showOff, setShowOff] = useState({
       <Form className='gen-form'>
       <FormGroup>
           <Label for="title">What do you want to show off?</Label> <br/>
-          <Input type="title" onChange={handleInputChange} name="title" id="title" placeholder="late night jam" />
+          <Input type="title" onChange={handleInputChange} name="title" id="title" placeholder="latest tune" />
         </FormGroup>
         <FormGroup>
           <Label for="description">Tell us more</Label>  <br/>

@@ -18,25 +18,26 @@ export default function AdDetail(props) {
   const [comments, setComments] = useState([])
   const [detail, setDetail] = useState(null)
   const [currentComment, setCurrentComment] = useState('')
-  // let currentUser =  api.getLocalStorageUser()._id
-  // let postOwner = detail && detail._user._id
+  let currentUser =  api.getLocalStorageUser()._id
+  let postOwner = detail && detail._user._id
   //    console.log('users', currentUser, postOwner, detail, currentUser && (
   //     currentUser !== postOwner && (
-  //       detail && detail.advertType === 'jam')))
-
-  useEffect(() => {
-    api.getAdDetail(adId).then(data => {
-      setDetail(data.ad)
+    //       detail && detail.advertType === 'jam')))
+    
+    useEffect(() => {
+      api.getAdDetail(adId).then(data => {
+        setDetail(data.ad)
+        console.log(data.ad.advertType)
       if (data.comments) {
         setComments(data.comments)
       }
     })
   }, [])
-
+  
   function toggle() {
     setShow(true)
   }
-
+  
   function handleModal(e) {
     setShow(false)
     if (e.target.value !== 'Cancel') {
@@ -44,27 +45,27 @@ export default function AdDetail(props) {
       api.createRequest(adId, message)
     }
   }
-
+  
   function handleInputChange(e) {
     setCurrentComment(e.target.value)
   }
-
+  
   function handleSubmit(e) {
     let values
     values = [...comments]
     values.push(currentComment)
     setComments(values)
-
+    
     const uploadData = { content: currentComment }
     api
-      .addComment(uploadData, adId)
-      .then(createdComment => {
-        setComments([...comments, createdComment])
-        setCurrentComment('')
-      })
-      .catch(err => console.log(err))
+    .addComment(uploadData, adId)
+    .then(createdComment => {
+      setComments([...comments, createdComment])
+      setCurrentComment('')
+    })
+    .catch(err => console.log(err))
   }
-
+  
   return (
     <div className="detailMain">
       {detail && (
@@ -97,14 +98,16 @@ export default function AdDetail(props) {
               </div>
             )}
 
-            {detail.advertType === 'jam' && (
+             
+            {(detail.advertType === 'jam') && (
               <Button className="filter-button" onClick={toggle}>
                 Request to Join
               </Button>
-            )}
-            {detail.advertType === 'wanted' && (
+            ),
+            (detail.advertType === 'wanted') && (
               <Button className="filter-button">Contact</Button>
-            )}
+            )
+             }
             <br />
           </div>
           <br />

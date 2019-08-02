@@ -168,6 +168,13 @@ export default {
       .catch(errHandler)
   },
 
+  addWanted(uploadData) {
+    return service
+      .post('/postwanted', uploadData)
+      .then(res => res.data)
+      .catch(errHandler)
+  },
+
   addPost(uploadData) {
     return service
       .post('/showOff', uploadData)
