@@ -377,12 +377,21 @@ body {
     font-size: 10px;
   }
 
+  .navLinkSwitchedColors {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 10px;
+    color: white !important;
+  }
+
   .navLinkIcon {
     width: 25px;
     height: 25px;
   }
 
-  .navLinkElements p {
+  .navLinkElements p,
+  .navLinkSwitchedColors p {
     margin: 0;
   }
 }
@@ -581,7 +590,6 @@ body {
     color: $pink;
   }
 }
-
 
 .gen-form {
   width: 80vw;

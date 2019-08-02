@@ -30,7 +30,8 @@ export default class App extends Component {
             <Route path="/postwanted" component={Wanted} />
             <Route path="/showOff" component={ShowOff} />
             <Route path="/places-map" component={Place} />
-            <Route path="/user" component={Profile} />
+            <Route exact path="/user" component={Profile} />
+            <Route exact path="/user/:userId" component={Profile} />
             <Route path="/edit-user" component={EditProfile} />
             <Route path="/request" component={Requests} />
             <Route path="/signup" component={Signup} />
