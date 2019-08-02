@@ -6,15 +6,12 @@ import { Link } from 'react-router-dom'
 export default function Profile() {
   const [user, setUser] = useState({})
   const [file, setFile] = useState()
-  const [isLoading, setIsLoading] = useState(true)
+  const [message, setMessage] = useState('')
 
   useEffect(() => {
-    api
-      .getProfile()
-      .then(user => {
-        setUser(user)
-      })
-      .then(setIsLoading(false))
+    api.getProfile().then(user => {
+      setUser(user)
+    })
   }, [])
 
   function handleAddField(e) {
@@ -127,10 +124,10 @@ export default function Profile() {
       .updateProfile(user)
       .then(result => {
         setUser(result)
-        /* setMessage(`Profile Updated`) */
-        /* setTimeout(() => {
+        setMessage(`Profile Updated!`)
+        setTimeout(() => {
           setMessage(null)
-        }, 2000) */
+        }, 2000)
       })
       .catch(err => setUser({ message: err.toString() }))
 
@@ -138,10 +135,10 @@ export default function Profile() {
       .updatePicture(profilePic)
       .then(result => {
         setUser(result)
-        /* setMessage('Profile Updated')
+        setMessage('Profile Updated')
         setTimeout(() => {
           setMessage(null)
-        }, 2000) */
+        }, 2000)
       })
       .catch(err => setUser({ message: err.toString() }))
   }
@@ -174,7 +171,6 @@ export default function Profile() {
                 onChange={handleInputFile}
               />
             </FormGroup>
-            <FormText>Example help text that remains unchanged.</FormText>
             <FormGroup>
               <Label for="bio">Bio</Label>
               <Input
@@ -294,11 +290,10 @@ export default function Profile() {
                 ))}
             </FormGroup>
             <Button className="filter-button marginized">Submit</Button>{' '}
+            {message && <p className="info">{message}</p>}
           </Form>
         </div>
       }
-
-      {/* message && <div className="info">{message}</div> */}
     </div>
   )
 }

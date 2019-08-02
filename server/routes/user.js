@@ -9,7 +9,6 @@ router.get('/', isLoggedIn, (req, res, next) => {
   let userId = req.user._id
   User.findById(userId)
     .then(user => {
-      console.log(res)
       res.json(user)
     })
     .catch(err => next(err))

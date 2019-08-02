@@ -51,7 +51,9 @@ router.get('/incoming-requests', isLoggedIn, (req, res, next) => {
 router.put('/handle-requests/:id', isLoggedIn, (req, res, next) => {
   let requestId = req.params.id
   let approval = req.body
+  console.log('working??????')
   Request.findByIdAndUpdate(requestId, approval, { new: true })
+
     .populate('_requester')
     .populate('_post')
     .then(request => {
