@@ -41,7 +41,8 @@ export default function AdDetail(props) {
     setShow(false)
     if (e.target.value !== 'Cancel') {
       let message = document.querySelector('#messageToSend').value
-      api.createRequest(adId, message)
+      console.log(message)
+      api.createRequest(adId, { message: message })
     }
   }
 
@@ -103,14 +104,15 @@ export default function AdDetail(props) {
               </Button>
             )}
             {detail.advertType === 'wanted' && (
-              <Button className="filter-button">Contact</Button>
+              <Button className="filter-button" onClick={toggle}>
+                Contact
+              </Button>
             )}
             <br />
           </div>
           <br />
           <div>
             <h5> Comments: </h5>
-
             {comments &&
               comments.map((com, i) => (
                 <div className="smaller-card" key={i}>

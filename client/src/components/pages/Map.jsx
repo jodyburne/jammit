@@ -244,7 +244,7 @@ export default function Map({ options, onMount, className, request }) {
       <div style={showCard}>
         <PlaceCard isMap {...singlePlace} />
       </div>
-      <div className="ListContainer" style={showList}>
+      <div className="single-single" style={showList}>
         {placesList.map((place, i) => (
           <PlaceCard {...place} key={i} />
         ))}
