@@ -78,7 +78,7 @@ export default function Requests() {
               <div className="smaller-card-text">
                 <p>{request._requester.name}</p>
                 <p>{request._post.title}</p>
-                <p className="message">{request.approval}</p>
+                <p className="message">{request.message}</p>
               </div>
               <div className="smaller-card-request-buttons">
                 <Button onClick={() => handleShow('Approved', request._id)}>

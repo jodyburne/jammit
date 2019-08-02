@@ -19,6 +19,7 @@ router.post('/create-request/:advertId', isLoggedIn, (req, res, next) => {
   let advertId = req.params.advertId
   let requester = req.user._id
   let message = req.body.message
+  console.log('DEBUG message,', req)
   Advert.findById(advertId)
     .then(advert => {
       Request.create({
@@ -51,14 +52,12 @@ router.get('/incoming-requests', isLoggedIn, (req, res, next) => {
 router.put('/handle-requests/:id', isLoggedIn, (req, res, next) => {
   let requestId = req.params.id
   let approval = req.body
-  console.log('working??????')
   Request.findByIdAndUpdate(requestId, approval, { new: true })
 
     .populate('_requester')
     .populate('_post')
     .then(request => {
       if (request.approval === 'approved') {
-        console.log('working?')
         let email = request._requester.email
         let name = request._requester.name
         let details = request._post.specific

@@ -18,54 +18,55 @@ export default function AdDetail(props) {
   const [comments, setComments] = useState([])
   const [detail, setDetail] = useState(null)
   const [currentComment, setCurrentComment] = useState('')
-  let currentUser =  api.getLocalStorageUser()._id
+  let currentUser = api.getLocalStorageUser()._id
   let postOwner = detail && detail._user._id
   //    console.log('users', currentUser, postOwner, detail, currentUser && (
   //     currentUser !== postOwner && (
-    //       detail && detail.advertType === 'jam')))
-    
-    useEffect(() => {
-      api.getAdDetail(adId).then(data => {
-        setDetail(data.ad)
-        console.log(data.ad.advertType)
+  //       detail && detail.advertType === 'jam')))
+
+  useEffect(() => {
+    api.getAdDetail(adId).then(data => {
+      setDetail(data.ad)
+      console.log(data.ad.advertType)
       if (data.comments) {
         setComments(data.comments)
       }
     })
   }, [])
-  
+
   function toggle() {
     setShow(true)
   }
-  
+
   function handleModal(e) {
     setShow(false)
     if (e.target.value !== 'Cancel') {
       let message = document.querySelector('#messageToSend').value
-      api.createRequest(adId, message)
+      console.log(message)
+      api.createRequest(adId, { message: message })
     }
   }
-  
+
   function handleInputChange(e) {
     setCurrentComment(e.target.value)
   }
-  
+
   function handleSubmit(e) {
     let values
     values = [...comments]
     values.push(currentComment)
     setComments(values)
-    
+
     const uploadData = { content: currentComment }
     api
-    .addComment(uploadData, adId)
-    .then(createdComment => {
-      setComments([...comments, createdComment])
-      setCurrentComment('')
-    })
-    .catch(err => console.log(err))
+      .addComment(uploadData, adId)
+      .then(createdComment => {
+        setComments([...comments, createdComment])
+        setCurrentComment('')
+      })
+      .catch(err => console.log(err))
   }
-  
+
   return (
     <div className="detailMain">
       {detail && (
@@ -98,20 +99,15 @@ export default function AdDetail(props) {
               </div>
             )}
 
-             
-            
-              <Button className="filter-button" onClick={toggle}>
-                Request to contact
-              </Button>
-            
-            
-             
+            <Button className="filter-button" onClick={toggle}>
+              Request to contact
+            </Button>
+
             <br />
           </div>
           <br />
           <div>
             <h5> Comments: </h5>
-
             {comments &&
               comments.map((com, i) => (
                 <div className="smaller-card" key={i}>
