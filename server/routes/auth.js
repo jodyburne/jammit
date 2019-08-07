@@ -55,31 +55,31 @@ router.post('/signup', (req, res, next) => {
           confirmationCode: token, status: 'pending confirmation'})
       return newUser.save()
     })
-    // .then(userSaved => {
-    //   // LOG IN THIS USER
-    //   // "req.logIn()" is a Passport method that calls "serializeUser()"
-    //   // (that saves the USER ID in the session)
-    //   req.logIn(userSaved, () => {
-    //     // hide "encryptedPassword" before sending the JSON (it's a security risk)
-    //     userSaved.password = undefined
-    //     res.json(userSaved)
-    //   })
-    // })
-     .then(() => {
-        transporter
-          .sendMail({
-            from: '"Start jamming! 🎵 " <welcome@jammit.com>',
-            to: email,
-            text: `Please confirm your account here: http://localhost:5000/auth/confirm/${confirmationCode}`
-            // html: '<b>' + message + '</b>'
-          })
-          .then(info => {
-            console.log("info", info);
-            res.redirect("/");
-            // res.render('message', { email, subject, message })
-          })
-          .catch(console.log);
+    .then(userSaved => {
+      // LOG IN THIS USER
+      // "req.logIn()" is a Passport method that calls "serializeUser()"
+      // (that saves the USER ID in the session)
+      req.logIn(userSaved, () => {
+        // hide "encryptedPassword" before sending the JSON (it's a security risk)
+        userSaved.password = undefined
+        res.json(userSaved)
       })
+    })
+    //  .then(() => {
+    //     transporter
+    //       .sendMail({
+    //         from: '"Start jamming! 🎵 " <welcome@jammit.com>',
+    //         to: email,
+    //         text: `Please confirm your account here: http://localhost:5000/auth/confirm/${confirmationCode}`
+    //         // html: '<b>' + message + '</b>'
+    //       })
+    //       .then(info => {
+    //         console.log("info", info);
+    //         res.redirect("/");
+    //         // res.render('message', { email, subject, message })
+    //       })
+    //       .catch(console.log);
+    //   })
     .catch(err => next(err))
 })
 
