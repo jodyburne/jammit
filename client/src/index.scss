@@ -305,13 +305,13 @@ body {
   padding: 0 !important;
 }
 
-@media (max-width: 450px) {
+// @media (max-width: 450px) {
   .App-footer {
-    height: 62px;
+    height: 70px;
     left: 0px;
     top: 606px;
   }
-}
+// }
 
 .muted-text-box {
   margin-bottom: 1rem;
@@ -396,11 +396,11 @@ body {
   }
 }
 
-@media (min-width: 450px) {
-  .App-footer {
-    display: none;
-  }
-}
+// @media (min-width: 450px) {
+//   .App-footer {
+//     display: none;
+//   }
+// }
 
 .smaller-card {
   min-width: 300px;
